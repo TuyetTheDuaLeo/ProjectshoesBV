@@ -30,171 +30,12 @@
 		<jsp:include page="/WEB-INF/views/backend/layout/header.jsp"></jsp:include>
 
 		<div class="main">
-			<nav class="navbar navbar-expand navbar-light navbar-bg">
-				<a class="sidebar-toggle js-sidebar-toggle">
-          <i class="hamburger align-self-center"></i>
-        </a>
-
-				<div class="navbar-collapse collapse">
-					<ul class="navbar-nav navbar-align">
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="bell"></i>
-									<span class="indicator">4</span>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
-								<div class="dropdown-menu-header">
-									4 New Notifications
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-danger" data-feather="alert-circle"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Update completed</div>
-												<div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
-												<div class="text-muted small mt-1">30m ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-warning" data-feather="bell"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Lorem ipsum</div>
-												<div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
-												<div class="text-muted small mt-1">2h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-primary" data-feather="home"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Login from 192.186.1.8</div>
-												<div class="text-muted small mt-1">5h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-success" data-feather="user-plus"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">New connection</div>
-												<div class="text-muted small mt-1">Christina accepted your request.</div>
-												<div class="text-muted small mt-1">14h ago</div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all notifications</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="message-square"></i>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
-								<div class="dropdown-menu-header">
-									<div class="position-relative">
-										4 New Messages
-									</div>
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">Vanessa Tucker</div>
-												<div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.</div>
-												<div class="text-muted small mt-1">15m ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">William Harris</div>
-												<div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>
-												<div class="text-muted small mt-1">2h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">Christina Mason</div>
-												<div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
-												<div class="text-muted small mt-1">4h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">Sharon Lessman</div>
-												<div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac, mattis non.</div>
-												<div class="text-muted small mt-1">5h ago</div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all messages</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
-                <i class="align-middle" data-feather="settings"></i>
-              </a>
-
-							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                <img src="${classpath }/backend/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" /> <span class="text-dark">${loginedUser.name }</span>
-              </a>
-							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="${classpath }/login">Log out</a>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</nav>
+			<jsp:include page="/WEB-INF/views/backend/layout/mainnav.jsp"></jsp:include>	
 
 			<main class="content">
 				<div class="container-fluid p-0">
 
-					<h1 class="h3 mb-3">Order list</h1>
+					<h1 class="h3 mb-3">Danh sách đơn hàng</h1>
 					<!-- Container fluid  -->
 			<!-- ============================================================== -->
 			<div class="container-fluid">
@@ -216,7 +57,7 @@
 													<div class="form-group mb-4">
 				                                        <select class="form-control"
 															id="status" name="status">
-																<option value="2">Tất cả đơn hàng</option>
+																<option value="2">Tất cả</option>
 																<option value="1">Đơn hàng đã giao</option>
 																<option value="0">Đơn hàng chưa giao</option>
 														</select>
@@ -234,11 +75,11 @@
 												
 												<div class="col-md-3">
 													<input type="text" class="form-control" id="keyword"
-															name="keyword" placeholder="Search keyword" />		
+															name="keyword" placeholder="Tìm kiếm" />		
 												</div>
 												
 												<div class="col-md-1">
-													<button type="submit" id="btnSearch" name="btnSearch" class="btn btn-primary">Search</button>
+													<button type="submit" id="btnSearch" name="btnSearch" class="btn btn-primary">Tìm</button>
 												</div>
 												<div class="col-md-1">
 													<input id="currentPage" name="currentPage" 
@@ -251,20 +92,19 @@
 												class="table table-striped table-bordered no-wrap">
 												<thead>
 													<tr align="center">
-														<th scope="col">No.</th>
-														<th scope="col">Id</th>
-														<th scope="col">Code</th>
-														<th scope="col">Customer</th>
-														<th scope="col">Mobile</th>
-														<th scope="col">Address</th>
-														<th scope="col">Payment</th>
-														<th scope="col">Create by</th>
+														<th scope="col">STT</th>
+														<th scope="col">ID</th>
+														<th scope="col">Mã</th>
+														<th scope="col">Tên khách hàng</th>
+														<th scope="col">Điện thoại</th>
+														<th scope="col">Địa chỉ</th>
+														<th scope="col">Tổng tiền</th>
+														<th scope="col">Người tạo</th>
 														<!-- <th scope="col">Update by</th> -->
-														<th scope="col">Create date</th>
-														<th scope="col">Delivery date</th>
-														<th scope="col">Status</th>
-														<th scope="col">Edit</th>
-														<th scope="col">Delete</th>
+														<th scope="col">Ngày tạo</th>
+														<th scope="col">Ngày giao hàng</th>
+														<th scope="col">Trạng thái</th>
+														<th scope="col">Hoạt động</th>
 	
 													</tr>
 												</thead>
@@ -295,13 +135,16 @@
 																	</c:when>
 																	<c:otherwise>Chưa giao hàng</c:otherwise>
 																</c:choose></td>
-	
 															<td><a
 																href="${classpath }/admin/order/edit/${saleOrder.id }"
-																role="button" class="btn btn-primary">Edit</a>
-															<td><a
+																role="button" class="btn btn-primary">Chi tiết</a>
+															<a
+																href="${classpath }/admin/order/edit/${saleOrder.id }"
+																role="button" class="btn btn-primary">Sửa</a>
+															<a
 																href="${classpath }/admin/order/delete/${saleOrder.id }"
-																role="button" class="btn btn-secondary">Delete</a>
+																role="button" class="btn btn-secondary">Xóa</a>
+															</td>
 														</tr>
 													</c:forEach>
 												</tbody>
@@ -311,7 +154,7 @@
 												<div class="col-md-6">
 													<div class="form-group mb-4">
 														<h3>
-															Total sales:
+															Tổng tiền:
 															<fmt:formatNumber value="${totalSales }"
 																minFractionDigits="0"></fmt:formatNumber>(vnđ)
 														</h3>
@@ -338,33 +181,7 @@
 				</div>
 			</main>
 
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-						<div class="col-6 text-start">
-							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin Template</strong></a>								&copy;
-							</p>
-						</div>
-						<div class="col-6 text-end">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
+
 		</div>
 	</div>
 

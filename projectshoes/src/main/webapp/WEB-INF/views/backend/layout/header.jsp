@@ -19,37 +19,37 @@
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="${classpath}/admin/category/list">
               			<i class="align-middle" data-feather="tag"></i> 
-			  			<span class="align-middle">Loại sản phẩm</span>
+			  			<span class="align-middle">Quản lý loại sản phẩm</span>
             			</a>
 					</li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="${classpath}/admin/product/list">
               			<i class="align-middle" data-feather="shopping-cart"></i> 
-			  			<span class="align-middle">Sản phẩm</span>
+			  			<span class="align-middle">Quản lý sản phẩm</span>
             			</a>
 					</li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="${classpath}/admin/user/list">
               			<i class="align-middle" data-feather="user"></i> 
-			  			<span class="align-middle">Người dùng</span>
+			  			<span class="align-middle">Quản lý tài khoản</span>
             			</a>
 					</li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="${classpath }/admin/role/list">
               			<i class="align-middle" data-feather="clipboard"></i> 
-			  			<span class="align-middle">Roles</span>
+			  			<span class="align-middle">Quản lý quyền</span>
             			</a>
 					</li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="${classpath }/admin/order/list">
               			<i class="align-middle" data-feather="calendar"></i> 
-			  			<span class="align-middle">Orders</span>
+			  			<span class="align-middle">Quản lý đơn hàng</span>
             			</a>
 					</li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-profile.html">
               			<i class="align-middle" data-feather="mail"></i> 
-			  			<span class="align-middle">Customer Contact</span>
+			  			<span class="align-middle">Liên hệ</span>
             			</a>
 					</li>
 					<li class="sidebar-header">
@@ -58,21 +58,22 @@
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="${classpath }/signup">
               				<i class="align-middle" data-feather="lock"></i> 
-			  				<span class="align-middle">Register</span>
+			  				<span class="align-middle">Đăng ký</span>
             			</a>
 					</li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="${classpath }/login">
             		  	<i class="align-middle" data-feather="log-in"></i>
-					   	<span class="align-middle">Login</span>
+					   	<span class="align-middle">Đăng nhập</span>
             			</a>
 					</li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="${classpath }/login">
               				<i class="align-middle" data-feather="log-out"></i> 
-			  				<span class="align-middle">Logout</span>
+			  				<span class="align-middle">Đăng xuất</span>
             			</a>
 					</li>
 				</ul>
 			</div>
 		</nav>
+		
