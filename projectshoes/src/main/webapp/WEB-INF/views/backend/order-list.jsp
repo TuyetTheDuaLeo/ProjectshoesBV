@@ -136,7 +136,7 @@
 																	<c:otherwise>Chưa giao hàng</c:otherwise>
 																</c:choose></td>
 															<td><a
-																href="${classpath }/admin/order/edit/${saleOrder.id }"
+																href="${classpath }/admin/order/detail/${saleOrder.id }"
 																role="button" class="btn btn-primary">Chi tiết</a>
 															<a
 																href="${classpath }/admin/order/edit/${saleOrder.id }"

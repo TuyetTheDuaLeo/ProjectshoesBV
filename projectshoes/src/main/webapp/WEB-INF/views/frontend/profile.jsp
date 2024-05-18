@@ -21,23 +21,34 @@
 <!-- variables -->
 <jsp:include page="/WEB-INF/views/common/variables.jsp"></jsp:include>
 <!-- Css -->
+    <link rel="stylesheet" href="${classpath }/frontend/css/demo.css">
 <jsp:include page="/WEB-INF/views/frontend/layout/css.jsp"></jsp:include>
 </head>
 <body>
 	<!-- Header -->
 	<jsp:include page="/WEB-INF/views/frontend/layout/header.jsp"></jsp:include>
-	
+	<nav>
+        <div class="bread-crumb">
+            <div class="container">
+                <div class="nd-main-title-breadcrumb text-center">
+                    Giới thiệu
+                </div>
+                <ul class="breadcrumb">
+                    <li class="home" itemprop="itemListElement">
+                        <a href="${classpath }/index" itemprop="item" title="Trang chủ">
+                            <span itemprop="name">Trang Chủ</span>
+                        </a>
+                    </li>
+                    <li itemprop="itemListElement">
+                        <strong itemprop="name">Giới thiệu</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 	<main class="bg-light">
-		<div class="section-p1">
+		<div class="section-p1" style="margin-bottom: 30px">
 			<div class="container">
-				<div class="row">
-					<nav aria-label="breadcrumb">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="${classpath}/index">Trang chủ</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Thông tin cá nhân</li>
-						</ol>
-					</nav>
-				</div>
 				<sf:form class="form" action="${classpath }/profile/edit-save"
 					method="post" modelAttribute="currentUser"
 					enctype="multipart/form-data">

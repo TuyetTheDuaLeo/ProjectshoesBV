@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 import vn.devpro.projectshoes.controller.BaseController;
 import vn.devpro.projectshoes.dto.PsConstants;
 import vn.devpro.projectshoes.dto.SearchModel;
 import vn.devpro.projectshoes.model.SaleOrder;
+import vn.devpro.projectshoes.model.SaleOrderProduct;
 import vn.devpro.projectshoes.model.User;
+import vn.devpro.projectshoes.service.SaleOrderProductService;
 import vn.devpro.projectshoes.service.SaleOrderService;
 import vn.devpro.projectshoes.service.UserService;
 
@@ -143,5 +146,34 @@ public class OrderController extends BaseController implements PsConstants{
 		saleOrder.setStatus(false);
 		saleOrderService.inactiveSaleOrder(saleOrder);
 		return "redirect:/admin/order/list";
+	}
+	@Autowired
+	private SaleOrderProductService saleOrderProductService;
+
+	// DETAIL ORDER
+	@RequestMapping(value = "detail/{saleOrderId}", method = RequestMethod.GET)
+	// Đẩy 1 dữ liệu sang view
+	public String detail(final Model model, @PathVariable("saleOrderId") int saleOrderId) {
+
+		// Lấy order trong DB bằng id để hiện thông tin khách hàng
+		SaleOrder saleOrder = saleOrderService.getById(saleOrderId);
+		model.addAttribute("saleOrder", saleOrder);
+
+		// lấy các thông tin sản phẩm từ thằng productCart
+		List<SaleOrderProduct> saleOrderProducts = saleOrderProductService.findAllProductInOrder(saleOrderId);
+
+		// Tính tổng doanh số bán hàng
+		BigDecimal totalSales = BigDecimal.ZERO;
+		for (SaleOrderProduct saleOrderProduct : saleOrderProducts) {
+			int quantity = saleOrderProduct.getQuantity();
+			BigDecimal price = saleOrderProduct.getProduct().getPrice();
+			totalSales = totalSales.add(price.multiply(BigDecimal.valueOf(quantity)));
+		}
+		
+		model.addAttribute("totalSales", totalSales);
+		model.addAttribute("saleOrderProducts", saleOrderProducts);
+
+		return "backend/order-detail";
+
 	}
 }
