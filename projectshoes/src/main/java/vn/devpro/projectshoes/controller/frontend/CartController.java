@@ -76,7 +76,7 @@ public class CartController extends BaseController implements PsConstants {
 		session.setAttribute("cart", cart);
 		// Tra ve du lieu cho view
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
-		jsonResult.put("code", 200);
+		jsonResult.put("code", "Thông báo");
 		jsonResult.put("totalCartProducts", cart.totalCartProduct());
 		jsonResult.put("message"," Đã thêm sản phẩm " + addProduct.getProductName() + " vào giỏ hàng ");
 		
@@ -132,6 +132,12 @@ public class CartController extends BaseController implements PsConstants {
 			}
 			else if(StringUtils.isEmpty(customer.getTxtMobile())) {
 				jsonResult.put("message", "Bạn chưa nhập số điện thoại");
+			}
+			else if(StringUtils.isEmpty(customer.getTxtEmail())) {
+				jsonResult.put("message", "Bạn chưa nhập số email");
+			}
+			else if(StringUtils.isEmpty(customer.getTxtAddress())) {
+				jsonResult.put("message", "Bạn chưa nhập số địa chỉ");
 			}
 			else {
 				HttpSession session = request.getSession();

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -178,6 +179,10 @@ public class ProductService extends BaseService<Product>  implements PsConstants
 			// Tạo câu lệnh sql
 			String sql = "SELECT * FROM tbl_product p WHERE 1=1 AND p.status = 1";
 			
+			//Tim kiemvoi tieu chi category
+			if(searchModel.getCategoryId() != 0) {
+				sql += " AND p.category_id = " + searchModel.getCategoryId();
+			}
 			//Tìm kiếm với keyword
 			if(!StringUtils.isEmpty(searchModel.getKeyword())) {
 				String keyword = searchModel.getKeyword().toLowerCase();
@@ -228,5 +233,13 @@ public class ProductService extends BaseService<Product>  implements PsConstants
 				}
 			}
 			return super.executeNativeSql(sql);
+		}
+		public List<String> getSizesForProduct(int productId) {
+			String sql = "SELECT size FROM tbl_product WHERE id = :productId";
+			Query query = entityManager.createNativeQuery(sql);
+			query.setParameter("productId", productId);
+			@SuppressWarnings("unchecked")
+			List<String> sizes = query.getResultList();
+			return sizes;
 		}
 }

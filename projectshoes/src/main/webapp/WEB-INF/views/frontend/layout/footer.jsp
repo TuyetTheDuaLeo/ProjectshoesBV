@@ -142,11 +142,11 @@
                     <div class="inner">
                         <div id="copyright">
                             <div class="wsp">
-                                @ Bản quyền thuộc về ND Team
+                                @ Bản quyền thuộc về Hoàng Văn Luân
                                 <span class="d-sm-inline-block d-none"> | </span>
                                 <span class="opacity1">
                                     Cung cấp bởi 
-                                    <a href="">Sapo</a>
+                                    <a href="">HVL</a>
                                 </span>
                             </div>
                         </div>

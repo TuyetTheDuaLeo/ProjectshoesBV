@@ -90,6 +90,7 @@
 																<th scope="col">ID</th>
 																<th scope="col">Tên</th>
 																<th scope="col">Ảnh</th>
+																<th scope="col">Size</th>
 																<th scope="col">Số lượng</th>
 																<th scope="col">Giá</th>
 																<th scope="col">Tổng tiền</th>
@@ -106,6 +107,7 @@
 																		height="40px"
 																		src="${classpath }/FileUploads/${item.product.avatar }"
 																		class="light-logo"></td>
+																	 <td>${product.size }</td>
 																	<td class="text-right">${item.quantity}</td>
 																	<td class="text-right"><fmt:formatNumber
 																			value="${item.product.price }" minFractionDigits="0" /></td>

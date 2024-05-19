@@ -105,42 +105,25 @@
                                         <div class=" swatch clearfix">
                                             <div class="options-title">
                                                 Kích thước: 
-                                                <span class="var">40</span>
+                                                <span class="var"></span>
                                             </div>
-                                            <div data-value="40" class="swatch-element 40 available">
-                                                <input id="swatch-1-40" type="radio" name="option-1" value="40" checked="">
-                                                <label title="40" for="swatch-1-40">
-                                                    40
-                                                </label>
-                                            </div>
-                                            <div data-value="41" class="swatch-element 41 available">
-                                                <input id="swatch-1-41" type="radio" name="option-1" value="41">
-                                                
-                                                <label title="41" for="swatch-1-41">
-                                                    41
-                                                </label>
-                                            </div>
-                                            <div data-value="42" class="swatch-element 42 available">
-                                                <input id="swatch-1-42" type="radio" name="option-1" value="42">
-                                                
-                                                <label title="42" for="swatch-1-42">
-                                                    42
-                                                </label>
-                                            </div>
-                                            <div data-value="43" class="swatch-element 43 available">
-                                                <input id="swatch-1-43" type="radio" name="option-1" value="43">
-                                                
-                                                <label title="43" for="swatch-1-43">
-                                                    43
-                                                </label>
-                                            </div>
-                                            <div data-value="44" class="swatch-element 44 available">
-                                                <input id="swatch-1-44" type="radio" name="option-1" value="44">
-                                                
-                                                <label title="44" for="swatch-1-44">
-                                                    44
-                                                </label>
-                                            </div>
+                                            <div class="detail-size d-flex align-items-center">
+												<span class="details-size-title"></span>
+												<div class="size-list">
+													<c:forEach var="size" items="${sizes}" varStatus="loop">
+														<c:forEach var="individualSize" items="${fn:split(size, ',')}" varStatus="innerLoop">
+															<label class="option-select__item option-size">
+																<div class="option-select__inner">
+																	<input type="radio" name="size" value="${individualSize}"
+																	<c:if test="${loop.index eq 0 and innerLoop.index eq 0}">checked</c:if>>
+																	<span class="checkmark">${individualSize}</span>
+																</div>
+															</label>
+														</c:forEach>
+													</c:forEach>
+												</div>
+
+											</div>
                                         </div>
 
                                    </div>

@@ -25,6 +25,14 @@ public class ProductControllerFE extends BaseController implements PsConstants {
 	public String allProduct(final Model model,
 			HttpServletRequest request) {
 		SearchModel searchModel = new SearchModel();
+		
+		//Tìm kiếm theo category
+		searchModel.setCategoryId(0);
+		String categoryId = request.getParameter("categoryId");
+		if(!StringUtils.isEmpty(categoryId)) {
+			searchModel.setCategoryId(Integer.parseInt(categoryId));
+		}
+		
 		// Tìm kiếm theo key
 		searchModel.setKeyword(null);
 		String keyword = request.getParameter("keyword");
@@ -45,7 +53,6 @@ public class ProductControllerFE extends BaseController implements PsConstants {
 		}
 		
 		List<Product> products = productService.searchProductFE(searchModel);
-		
 		model.addAttribute("products",products);
 		return "frontend/allproduct";
 	}

@@ -127,7 +127,9 @@
                                         </div>
                                         <div class="card-body">
                                           <h3 class="card-title"><a href="${classpath }/product-detail/${product.id}">${product.name }</a></h3>
-                                          <%-- <span class="brand">Niken</span>  --%>
+                                          <span class="brand">
+                                          		${category.name }
+                                          </span>
                                           <div class="bottom-action">
                                             <div class="price-box">
                                             	<fmt:formatNumber value="${product.price }" minFractionDigits="0"></fmt:formatNumber>

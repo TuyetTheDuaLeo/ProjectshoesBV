@@ -24,11 +24,17 @@ public class Product extends BaseModel{
 	@Column(name = "avatar", nullable = true)
 	private String avatar;
 	
+	@Column(name = "product_quantity", nullable = true)
+	private Integer productQuantity;
+	
 	@Column(name = "price", nullable = true)
 	private BigDecimal price;
 	
 	@Column(name = "sale_price", nullable = true)
 	private BigDecimal salePrice;
+	
+	@Column(name = "size", length = 45, nullable = true)
+	private String size;
 	
 	@Column(name = "short_description", length = 500, nullable = true)
 	private String shortDescription;
@@ -87,9 +93,7 @@ public class Product extends BaseModel{
 		super();
 	}
 	
-
-
-	public Product(Integer id, Date createDate, Date updateDate, Boolean status, String name, String avatar,
+	public Product(Integer id, Date createDate, Date updateDate, Boolean status, String name, String avatar, String size, Integer productQuantity, 
 			BigDecimal price, BigDecimal sale_price, String shortDescription, String detailDescription, Boolean isHot,
 			String seo, Category category) {
 		super(id, createDate, updateDate, status);
@@ -102,6 +106,8 @@ public class Product extends BaseModel{
 		this.isHot = isHot;
 		this.seo = seo;
 		this.category = category;
+		this.size = size;
+		this.productQuantity = productQuantity;
 	}
 	public String getName() {
 		return name;
@@ -180,6 +186,18 @@ public class Product extends BaseModel{
 	}
 	public void setUserUpdateProduct(User userUpdateProduct) {
 		this.userUpdateProduct = userUpdateProduct;
+	}
+	public Integer getProductQuantity() {
+		return productQuantity;
+	}
+	public void setProductQuantity(Integer productQuantity) {
+		this.productQuantity = productQuantity;
+	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
 	}
 	
 }

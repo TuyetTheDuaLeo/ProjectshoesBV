@@ -48,7 +48,7 @@ CREATE TABLE `tbl_category` (
 
 LOCK TABLES `tbl_category` WRITE;
 /*!40000 ALTER TABLE `tbl_category` DISABLE KEYS */;
-INSERT INTO `tbl_category` VALUES (1,'Giày Adidas',1,1,'2024-01-11 00:00:00',NULL,1,'abc',NULL),(2,'GiàyNike',1,1,'2024-02-11 00:00:00',NULL,1,'cde',NULL),(3,'Converse',1,1,'2024-01-21 00:00:00',NULL,0,'',NULL),(4,'Boot',1,1,'2024-02-20 00:00:00',NULL,0,'',NULL),(5,'Puma',1,1,'2024-02-28 00:00:00',NULL,0,'',NULL),(6,'Giay cao got',1,1,'2024-05-04 00:00:00',NULL,1,'',NULL);
+INSERT INTO `tbl_category` VALUES (1,'Giày Adidas',1,1,'2024-01-11 00:00:00',NULL,1,'abc',NULL),(2,'GiàyNike',1,1,'2024-02-11 00:00:00',NULL,1,'cde',NULL),(3,'Converse',1,1,'2024-01-21 00:00:00',NULL,0,'',NULL),(4,'Boot',1,1,'2024-02-20 00:00:00',NULL,0,'',NULL),(5,'Puma',1,1,'2024-02-28 00:00:00',NULL,0,'',NULL),(6,'Giay cao got',1,1,'2024-05-04 00:00:00',NULL,0,'',NULL);
 /*!40000 ALTER TABLE `tbl_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +99,9 @@ CREATE TABLE `tbl_product` (
   `name` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `avatar` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `price` decimal(15,2) DEFAULT NULL,
+  `product_quantity` int DEFAULT NULL,
   `sale_price` decimal(15,2) DEFAULT NULL,
+  `size` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
   `create_by` int DEFAULT NULL,
   `update_by` int DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
@@ -125,7 +127,7 @@ CREATE TABLE `tbl_product` (
 
 LOCK TABLES `tbl_product` WRITE;
 /*!40000 ALTER TABLE `tbl_product` DISABLE KEYS */;
-INSERT INTO `tbl_product` VALUES (1,2,'Nike Air Force 1 07 Cam','Product/Avatar/avatar1.jpg',5000000.00,NULL,1,1,'2023-03-15 00:00:00','2024-02-23 00:00:00',1,0,'','',NULL),(2,2,'Nike Air Force 1 07 LV8','Product/Avatar/avatar2.jpg',3900000.00,NULL,1,1,'2023-06-07 00:00:00','2024-02-23 00:00:00',1,0,'','',NULL),(3,2,'Nike Air Force 1 07','Product/Avatar/avartar3.jpg',2000000.00,NULL,1,1,'2023-11-09 00:00:00','2024-02-23 00:00:00',1,0,'','',NULL),(4,2,'LeBron 19','Product/Avatar/avatar4.png',5600000.00,NULL,1,1,'2023-12-14 00:00:00','2024-02-23 00:00:00',1,0,'','',NULL),(5,2,'Nike Blazer x sacai x KAWS','Product/Avatar/avatar5.jpg',5100000.00,NULL,1,1,'2024-01-31 00:00:00','2024-02-23 00:00:00',1,0,'','',NULL),(6,2,'Nike Air Max 90','Product/Avatar/avatar6.jpg',5500000.00,NULL,1,1,'2024-03-15 00:00:00','2024-02-28 00:00:00',1,1,'','',NULL),(9,2,'Nike Air Huarache PRM QS','Product/Avatar/avatar7.jpg',5829000.00,NULL,1,1,'2024-01-31 00:00:00','2024-02-27 00:00:00',1,0,'','',NULL),(10,2,'Kyrie Infinity','Product/Avatar/avatar8.jpg',4829000.00,NULL,1,1,'2024-02-23 00:00:00',NULL,1,0,'','',NULL),(11,2,'Niken VSS8','Product/Avatar/avatar9.jpg',11000000.00,NULL,1,1,'2024-02-28 00:00:00','2024-02-28 00:00:00',0,0,'','',NULL),(12,1,'Nike SCC2','Product/Avatar/avatar11.jpg',8000000.00,NULL,1,1,'2024-02-29 00:00:00','2024-02-29 00:00:00',0,0,'','',NULL);
+INSERT INTO `tbl_product` VALUES (1,2,'Nike Air Force 1 07 Cam','Product/Avatar/avatar1.jpg',5000000.00,10,NULL,'40, 41, 42, 43, 44, 45',1,1,'2023-03-15 00:00:00','2024-05-19 00:00:00',1,0,'','',NULL),(2,2,'Nike Air Force 1 07 LV8','Product/Avatar/avatar2.jpg',3900000.00,5,NULL,'40, 41, 42',1,1,'2023-06-07 00:00:00','2024-05-19 00:00:00',1,0,'','',NULL),(3,2,'Nike Air Force 1 07','Product/Avatar/avartar3.jpg',2000000.00,6,NULL,'40, 41, 42, 43',1,1,'2023-11-09 00:00:00','2024-05-19 00:00:00',1,0,'','',NULL),(4,1,'LeBron 19','Product/Avatar/avatar4.png',5600000.00,20,NULL,'40, 41, 42, 43, 44, 45',1,1,'2023-12-14 00:00:00','2024-05-19 00:00:00',1,0,'','',NULL),(5,2,'Nike Blazer x sacai x KAWS','Product/Avatar/avatar5.jpg',5100000.00,15,NULL,'40, 41, 42',1,1,'2024-01-31 00:00:00','2024-05-19 00:00:00',1,0,'','',NULL),(6,2,'Nike Air Max 90','Product/Avatar/avatar6.jpg',5500000.00,9,NULL,'40, 41, 42, 43, 44, 45',1,1,'2024-03-15 00:00:00','2024-05-19 00:00:00',1,1,'','',NULL),(9,2,'Nike Air Huarache PRM QS','Product/Avatar/avatar7.jpg',5829000.00,12,NULL,'40, 41, 42, 43',1,1,'2024-01-31 00:00:00','2024-05-19 00:00:00',1,0,'','',NULL),(10,1,'Kyrie Infinity','Product/Avatar/avatar8.jpg',4829000.00,10,NULL,'40, 41, 42, 43',1,1,'2024-02-23 00:00:00','2024-05-19 00:00:00',1,0,'','',NULL),(11,2,'Niken VSS8','Product/Avatar/avatar9.jpg',11000000.00,6,NULL,'40, 41, 42, 43, 44, 45',1,1,'2024-02-28 00:00:00','2024-05-19 00:00:00',0,0,'','',NULL),(12,1,'Nike SCC2','Product/Avatar/avatar11.jpg',8000000.00,3,NULL,'40, 41, 42',1,1,'2024-02-29 00:00:00','2024-05-19 00:00:00',1,0,'','',NULL);
 /*!40000 ALTER TABLE `tbl_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,7 +194,7 @@ CREATE TABLE `tbl_role` (
 
 LOCK TABLES `tbl_role` WRITE;
 /*!40000 ALTER TABLE `tbl_role` DISABLE KEYS */;
-INSERT INTO `tbl_role` VALUES (1,'ADMIN',1,1,NULL,NULL,1,NULL),(2,'GUEST',1,1,NULL,NULL,1,NULL),(3,'admin2',1,1,'2024-02-20 00:00:00',NULL,0,''),(4,' admin2',1,1,'2024-02-19 00:00:00',NULL,1,''),(5,'guest1',1,1,'2024-02-28 00:00:00',NULL,1,'');
+INSERT INTO `tbl_role` VALUES (1,'ADMIN',1,1,NULL,NULL,1,''),(2,'GUEST',1,1,NULL,NULL,1,NULL),(3,'admin2',1,1,'2024-02-20 00:00:00',NULL,0,''),(4,' admin2',1,1,'2024-02-19 00:00:00',NULL,1,''),(5,'guest1',1,1,'2024-02-28 00:00:00',NULL,1,'');
 /*!40000 ALTER TABLE `tbl_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,7 +226,7 @@ CREATE TABLE `tbl_sale_order` (
   CONSTRAINT `fk_createby_sale_order` FOREIGN KEY (`create_by`) REFERENCES `tbl_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_user_sale_order` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_user_update_sale_order` FOREIGN KEY (`update_by`) REFERENCES `tbl_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -233,7 +235,7 @@ CREATE TABLE `tbl_sale_order` (
 
 LOCK TABLES `tbl_sale_order` WRITE;
 /*!40000 ALTER TABLE `tbl_sale_order` DISABLE KEYS */;
-INSERT INTO `tbl_sale_order` VALUES (1,NULL,'a2024125',5000000.00,'a','123456788',NULL,'Phú THọ',1,NULL,'2024-02-27 00:00:00',NULL,1),(2,NULL,'07623333332024125',5000000.00,'Long','0762333333',NULL,'Hai Phong',1,NULL,'2024-02-27 00:00:00',NULL,1),(3,1,'01234567892024125',8900000.00,'Linh','0123456789','linh@gmail.com','Hà Nội',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(4,1,'09351799992024126',8900000.00,'Hoang Van','0935179999','van@gmail.com','Ninh Bình',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(5,1,'07884519992024126',8900000.00,'Triệu Vân','0788451999','trieu@gmail.com','Thanh Hóa',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(6,1,'0382569992024126',32000000.00,'Nguyên','038256999','nguyen@gmail.com','Hai Phong',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(7,1,'09876543212024126',14000000.00,'anh','0987654321','quocanh@gmail.com','Hải Phòng',NULL,NULL,'2024-02-27 17:30:37',NULL,0),(8,1,'06365897792024126',8900000.00,'Triệu Vân','0636589779','trieuvan@gmail.com','HaiDuong',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(9,1,'03781234562024126',5900000.00,'nguyen','0378123456','nguyenhp@gmail.com','Hải Phòng',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(10,1,'06365897792024126',10000000.00,'Triệu Vân','0636589779','trieuvan@gmail.com','HaiDuong',NULL,NULL,'2024-02-27 17:30:37',NULL,0),(11,1,'09351799562024129',40000000.00,'Nguoi Dung','0935179956','ng@gmail.com','Hải Dương',NULL,NULL,NULL,NULL,0),(12,NULL,'0762380296202448',5900000.00,'luan','0762380296',NULL,'Hải Phòng',1,NULL,NULL,NULL,1),(13,1,'06365897792024412',13900000.00,'Triệu Vân','0636589779','trieuvan@gmail.com','HaiDuong',NULL,NULL,NULL,NULL,0);
+INSERT INTO `tbl_sale_order` VALUES (1,NULL,'a2024125',5000000.00,'a','123456788',NULL,'Phú THọ',1,NULL,'2024-02-27 00:00:00',NULL,1),(2,NULL,'07623333332024125',5000000.00,'Long','0762333333',NULL,'Hai Phong',1,NULL,'2024-02-27 00:00:00',NULL,1),(3,1,'01234567892024125',8900000.00,'Linh','0123456789','linh@gmail.com','Hà Nội',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(4,1,'09351799992024126',8900000.00,'Hoang Van','0935179999','van@gmail.com','Ninh Bình',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(5,1,'07884519992024126',8900000.00,'Triệu Vân','0788451999','trieu@gmail.com','Thanh Hóa',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(6,1,'0382569992024126',32000000.00,'Nguyên','038256999','nguyen@gmail.com','Hai Phong',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(7,1,'09876543212024126',14000000.00,'anh','0987654321','quocanh@gmail.com','Hải Phòng',NULL,NULL,'2024-02-27 17:30:37',NULL,0),(8,1,'06365897792024126',8900000.00,'Triệu Vân','0636589779','trieuvan@gmail.com','HaiDuong',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(9,1,'03781234562024126',5900000.00,'nguyen','0378123456','nguyenhp@gmail.com','Hải Phòng',NULL,NULL,'2024-02-27 17:30:37',NULL,1),(10,NULL,'06365897792024126',10000000.00,'Triệu Vân','0636589779',NULL,'HaiDuong',1,NULL,'2024-03-27 00:00:00',NULL,0),(11,NULL,'09351799562024129',40000000.00,'Nguoi Dung','0935179956',NULL,'Hải Dương',1,NULL,'2024-05-18 00:00:00',NULL,1),(12,NULL,'0762380296202448',5900000.00,'luan','0762380296',NULL,'Hải Phòng',1,NULL,'2024-04-18 00:00:00',NULL,1),(13,NULL,'06365897792024412',13900000.00,'Triệu Vân','0636589779',NULL,'HaiDuong',1,NULL,'2024-03-19 00:00:00',NULL,1),(14,NULL,'07623802962024417',20000000.00,'luan','0762380296',NULL,'Hải Phòng',1,NULL,'2024-06-06 00:00:00',NULL,1),(15,1,'09352789452024419',16200000.00,'Hoang Văn Luân','0935278945','','',NULL,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `tbl_sale_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -260,7 +262,7 @@ CREATE TABLE `tbl_sale_order_product` (
   KEY `fk_sale_order_s_o_product_idx` (`sale_order_id`),
   CONSTRAINT `fk_product_sale_order_product` FOREIGN KEY (`product_id`) REFERENCES `tbl_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_sale_order_s_o_product` FOREIGN KEY (`sale_order_id`) REFERENCES `tbl_sale_order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,7 +271,7 @@ CREATE TABLE `tbl_sale_order_product` (
 
 LOCK TABLES `tbl_sale_order_product` WRITE;
 /*!40000 ALTER TABLE `tbl_sale_order_product` DISABLE KEYS */;
-INSERT INTO `tbl_sale_order_product` VALUES (1,1,1,1,NULL,NULL,NULL,NULL,1,NULL),(2,2,1,1,NULL,NULL,NULL,NULL,1,NULL),(3,3,1,1,NULL,NULL,NULL,NULL,1,NULL),(4,3,2,1,NULL,NULL,NULL,NULL,1,NULL),(5,4,1,1,NULL,NULL,NULL,NULL,1,NULL),(6,4,2,1,NULL,NULL,NULL,NULL,1,NULL),(7,5,1,1,NULL,NULL,NULL,NULL,1,NULL),(8,5,2,1,NULL,NULL,NULL,NULL,1,NULL),(9,6,3,2,NULL,NULL,NULL,NULL,1,NULL),(10,6,1,2,NULL,NULL,NULL,NULL,1,NULL),(11,6,5,2,NULL,NULL,NULL,NULL,1,NULL),(12,6,2,2,NULL,NULL,NULL,NULL,1,NULL),(13,7,3,7,NULL,NULL,NULL,NULL,1,NULL),(14,8,1,1,NULL,NULL,NULL,NULL,1,NULL),(15,8,2,1,NULL,NULL,NULL,NULL,1,NULL),(16,9,2,1,NULL,NULL,NULL,NULL,1,NULL),(17,9,3,1,NULL,NULL,NULL,NULL,1,NULL),(18,10,1,2,NULL,NULL,NULL,NULL,1,NULL),(19,11,1,8,NULL,NULL,NULL,NULL,1,NULL),(20,12,2,1,NULL,NULL,NULL,NULL,1,NULL),(21,12,3,1,NULL,NULL,NULL,NULL,1,NULL),(22,13,2,1,NULL,NULL,NULL,NULL,1,NULL),(23,13,1,2,NULL,NULL,NULL,NULL,1,NULL);
+INSERT INTO `tbl_sale_order_product` VALUES (1,1,1,1,NULL,NULL,NULL,NULL,1,NULL),(2,2,1,1,NULL,NULL,NULL,NULL,1,NULL),(3,3,1,1,NULL,NULL,NULL,NULL,1,NULL),(4,3,2,1,NULL,NULL,NULL,NULL,1,NULL),(5,4,1,1,NULL,NULL,NULL,NULL,1,NULL),(6,4,2,1,NULL,NULL,NULL,NULL,1,NULL),(7,5,1,1,NULL,NULL,NULL,NULL,1,NULL),(8,5,2,1,NULL,NULL,NULL,NULL,1,NULL),(9,6,3,2,NULL,NULL,NULL,NULL,1,NULL),(10,6,1,2,NULL,NULL,NULL,NULL,1,NULL),(11,6,5,2,NULL,NULL,NULL,NULL,1,NULL),(12,6,2,2,NULL,NULL,NULL,NULL,1,NULL),(13,7,3,7,NULL,NULL,NULL,NULL,1,NULL),(14,8,1,1,NULL,NULL,NULL,NULL,1,NULL),(15,8,2,1,NULL,NULL,NULL,NULL,1,NULL),(16,9,2,1,NULL,NULL,NULL,NULL,1,NULL),(17,9,3,1,NULL,NULL,NULL,NULL,1,NULL),(18,10,1,2,NULL,NULL,NULL,NULL,1,NULL),(19,11,1,8,NULL,NULL,NULL,NULL,1,NULL),(20,12,2,1,NULL,NULL,NULL,NULL,1,NULL),(21,12,3,1,NULL,NULL,NULL,NULL,1,NULL),(22,13,2,1,NULL,NULL,NULL,NULL,1,NULL),(23,13,1,2,NULL,NULL,NULL,NULL,1,NULL),(24,14,1,4,NULL,NULL,NULL,NULL,1,NULL),(25,15,4,2,NULL,NULL,NULL,NULL,1,NULL),(26,15,1,1,NULL,NULL,NULL,NULL,1,NULL);
 /*!40000 ALTER TABLE `tbl_sale_order_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,7 +311,7 @@ CREATE TABLE `tbl_user` (
 
 LOCK TABLES `tbl_user` WRITE;
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'admin','$2a$04$TY3UYyoOqn3tVb21ZfXRv.bXk02lPR4fLcssDwFasSlG8mrc990iW','Hoàng Luân','0762380299','duongqua@gmail.com','HaNoi',NULL,1,1,NULL,NULL,1,''),(2,'guest','$2a$04$TY3UYyoOqn3tVb21ZfXRv.bXk02lPR4fLcssDwFasSlG8mrc990iW','Triệu Vân','0636589779','trieuvan@gmail.com','HaiDuong',NULL,1,1,NULL,NULL,1,''),(9,'luan','$2a$04$Axr.LiBal7xzd83lPlVL4uajh6RotXt/BJ21hLgQouD8YRZvR1XXu','luan','0762380296','luan@gmail.com','Hải Phòng',NULL,1,1,NULL,NULL,1,''),(10,'nguyen','$2a$04$XQisT4a5AX3a9giikVnLg.SH6LfKMqOnGDYjr03.WaX/j7xLvJinG','nguyen','0935179999','nguyen@gmail.com','Hải Phòng',NULL,NULL,NULL,NULL,NULL,1,NULL),(11,'demlanhleo','$2a$04$aaabaqZvrQpXc/edz6MaGudKAIBNmtvc4Eg0SGMcveRnwJW10ZV8u','nguyen','0378123456','nguyenhp@gmail.com','Hải Phòng',NULL,NULL,NULL,NULL,NULL,1,NULL),(12,'luan','$2a$04$TY3UYyoOqn3tVb21ZfXRv.bXk02lPR4fLcssDwFasSlG8mrc990iW','HoangLuan','0762380296','hoangvanluan9a1@gmail.com','Hải Phòng',NULL,1,1,'2024-02-27 00:00:00',NULL,1,''),(13,'anh','$2a$04$4yMiqSEfr12cTl/XuoeJie6WdyHUprCRj5aoigFOLwaA1wgI0hThC','NgoAnh','0965999686','anh@gmail.com','Hải Phòng',NULL,1,1,'2024-02-27 00:00:00',NULL,1,''),(14,'loan','$2a$04$X0ZvzDCnqpe4WvgKWlmXbu/bpcIhC6lUC/7ltPnbXZZw12bgZe8ra','Loan','0935124687','loan@gmail.com','Bắc Giang 1',NULL,1,1,'2024-02-28 00:00:00',NULL,1,''),(15,'nguoidung','$2a$04$EO8j0u7mQ81s7SGrYsaikuXUxfbW0YwddGoXYIIDtVVZk1DnBzMKa','Nguoi Dung','0935179956','ng@gmail.com','Hải Phòng',NULL,NULL,NULL,NULL,NULL,1,NULL),(16,'kcntt','$2a$04$SX5Z0W1M9arZz3zDx7NyEegckR8NAChfMwoYLWbtQCJQxv0.hOHl2','Loan','0123456789','loan@gmail.com','Hà Nội',NULL,1,1,'2024-02-29 00:00:00',NULL,1,''),(17,'test','$2a$04$z9lBi9nya69cqc/EBjROkO.5bmUzmPChrbDZ1jxbuie63rBxPM1MO','Tiểu Vũ','0123456789','hoangvanluan@gmail.com','',NULL,2,2,'2024-02-29 00:00:00',NULL,1,''),(19,'abc','$2a$04$jIHDDQm4tGQKlmzAsd1ntOGowb6CptX0hURKVCqnXK4ubc1rw4nvS','QuocAnh','0364801195','anhlx@gmail.com','Hai Phong',NULL,NULL,NULL,NULL,NULL,1,NULL),(20,'admin','$2a$04$XLZndx.aCfFjK8Av41fqeOf56tX9DlT6LydeMWKz6mmTGiPnGOL42','','','','',NULL,NULL,NULL,NULL,NULL,1,NULL);
+INSERT INTO `tbl_user` VALUES (1,'admin','$2a$04$TY3UYyoOqn3tVb21ZfXRv.bXk02lPR4fLcssDwFasSlG8mrc990iW','Hoàng Luân','0762380299','duongqua@gmail.com','HaNoi',NULL,1,1,NULL,NULL,1,''),(2,'guest','$2a$04$TY3UYyoOqn3tVb21ZfXRv.bXk02lPR4fLcssDwFasSlG8mrc990iW','Triệu Vân','0636589779','trieuvan@gmail.com','HaiDuong',NULL,1,1,NULL,NULL,1,''),(9,'luan','$2a$04$Axr.LiBal7xzd83lPlVL4uajh6RotXt/BJ21hLgQouD8YRZvR1XXu','luan','0762380296','luan@gmail.com','Hải Phòng','User/Avatar/avartar3.jpg',1,1,NULL,NULL,1,''),(10,'nguyen','$2a$04$XQisT4a5AX3a9giikVnLg.SH6LfKMqOnGDYjr03.WaX/j7xLvJinG','nguyen','0935179999','nguyen@gmail.com','Hải Phòng',NULL,NULL,NULL,NULL,NULL,1,NULL),(11,'demlanhleo','$2a$04$aaabaqZvrQpXc/edz6MaGudKAIBNmtvc4Eg0SGMcveRnwJW10ZV8u','nguyen','0378123456','nguyenhp@gmail.com','Hải Phòng',NULL,NULL,NULL,NULL,NULL,1,NULL),(12,'luan','$2a$04$TY3UYyoOqn3tVb21ZfXRv.bXk02lPR4fLcssDwFasSlG8mrc990iW','HoangLuan','0762380296','hoangvanluan9a1@gmail.com','Hải Phòng',NULL,1,1,'2024-02-27 00:00:00',NULL,1,''),(13,'anh','$2a$04$4yMiqSEfr12cTl/XuoeJie6WdyHUprCRj5aoigFOLwaA1wgI0hThC','NgoAnh','0965999686','anh@gmail.com','Hải Phòng',NULL,1,1,'2024-02-27 00:00:00',NULL,1,''),(14,'loan','$2a$04$X0ZvzDCnqpe4WvgKWlmXbu/bpcIhC6lUC/7ltPnbXZZw12bgZe8ra','Loan','0935124687','loan@gmail.com','Bắc Giang 1',NULL,1,1,'2024-02-28 00:00:00',NULL,1,''),(15,'nguoidung','$2a$04$EO8j0u7mQ81s7SGrYsaikuXUxfbW0YwddGoXYIIDtVVZk1DnBzMKa','Nguoi Dung','0935179956','ng@gmail.com','Hải Phòng',NULL,NULL,NULL,NULL,NULL,1,NULL),(16,'kcntt','$2a$04$SX5Z0W1M9arZz3zDx7NyEegckR8NAChfMwoYLWbtQCJQxv0.hOHl2','Loan','0123456789','loan@gmail.com','Hà Nội',NULL,1,1,'2024-02-29 00:00:00',NULL,1,''),(17,'test','$2a$04$z9lBi9nya69cqc/EBjROkO.5bmUzmPChrbDZ1jxbuie63rBxPM1MO','Tiểu Vũ','0123456789','hoangvanluan@gmail.com','',NULL,2,2,'2024-02-29 00:00:00',NULL,1,''),(19,'abc','$2a$04$jIHDDQm4tGQKlmzAsd1ntOGowb6CptX0hURKVCqnXK4ubc1rw4nvS','QuocAnh','0364801195','anhlx@gmail.com','Hai Phong',NULL,NULL,NULL,NULL,NULL,1,NULL);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,7 +340,7 @@ CREATE TABLE `tbl_user_role` (
 
 LOCK TABLES `tbl_user_role` WRITE;
 /*!40000 ALTER TABLE `tbl_user_role` DISABLE KEYS */;
-INSERT INTO `tbl_user_role` VALUES (1,1,1),(26,2,2),(27,9,2),(28,10,2),(29,11,2),(30,15,2),(31,19,2),(32,20,2);
+INSERT INTO `tbl_user_role` VALUES (26,2,2),(27,9,2),(28,10,2),(29,11,2),(30,15,2),(31,19,1),(32,1,1);
 /*!40000 ALTER TABLE `tbl_user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -351,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-13 10:07:03
+-- Dump completed on 2024-05-19 23:33:13

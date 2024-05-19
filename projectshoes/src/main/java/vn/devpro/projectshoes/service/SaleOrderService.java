@@ -1,5 +1,7 @@
 package vn.devpro.projectshoes.service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -52,5 +54,19 @@ public class SaleOrderService extends BaseService<SaleOrder> implements PsConsta
 			sql += " AND p.create_date BETWEEN '" + beginDate + "'AND '" + endDate + "'";
 		}
 		return super.executeNativeSql(sql);
+	}
+	 // Hàm trả về list số lượng các sản phẩm đã bán trong năm hiện tại theo tháng
+	public List<BigDecimal> getMoneyByMonths(int year) {
+	    List<BigDecimal> dashboardRevenue = new ArrayList<>();
+
+	    for (int i = 1; i <= 12; i++) {
+	        BigDecimal revenue = (BigDecimal) entityManager
+	            .createNativeQuery("SELECT COALESCE(SUM(total), 0) FROM tbl_sale_order WHERE status = 1 AND YEAR(create_date) = :year AND MONTH(create_date) = :month")
+	            .setParameter("year", year)
+	            .setParameter("month", i)
+	            .getSingleResult();
+	        dashboardRevenue.add(revenue);
+	    }
+	    return dashboardRevenue;
 	}
 }

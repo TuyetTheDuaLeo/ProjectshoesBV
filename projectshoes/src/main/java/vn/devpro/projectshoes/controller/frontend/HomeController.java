@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import vn.devpro.projectshoes.controller.BaseController;
+import vn.devpro.projectshoes.model.Category;
 import vn.devpro.projectshoes.model.Product;
 import vn.devpro.projectshoes.model.ProductImage;
+import vn.devpro.projectshoes.service.CategoryService;
 import vn.devpro.projectshoes.service.ProductImageService;
 import vn.devpro.projectshoes.service.ProductService;
 
@@ -25,6 +27,8 @@ public class HomeController extends BaseController{
 	private ProductService productService;
 	@Autowired
 	private ProductImageService productImageService;
+	@Autowired 
+	private CategoryService categoryService;
 	
 	@RequestMapping(value="/index", method = RequestMethod.GET)
 	// @RequestMapping : Anh xa mot action den mot action method trong controller
@@ -32,6 +36,8 @@ public class HomeController extends BaseController{
 			final HttpServletRequest request,
 			final HttpServletResponse response) throws IOException{
 		List<Product> products = productService.findAllActive();
+		List<Category> categories = categoryService.findAllActive();
+		model.addAttribute("categories",categories);
 		model.addAttribute("products",products);
 		return "frontend/index";
 	}
@@ -49,4 +55,5 @@ public class HomeController extends BaseController{
 		model.addAttribute("productImages", productImages);
 		return "frontend/product-detail";
 	}
+	
 }

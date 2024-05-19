@@ -24,7 +24,9 @@ public class UserService extends BaseService<User> implements PsConstants{
 	public List<User> findAllActive(){
 		return super.executeNativeSql("SELECT * FROM tbl_user WHERE status = 1");
 	}
-	
+	public List<User> findAllUsers() {
+		return super.executeNativeSql("SELECT * FROM tbl_user WHERE status = 1 AND username != 'admin'");
+	}
 	@Transactional
 	public void deleteUserById(int id) {
 		super.deleteById(id);

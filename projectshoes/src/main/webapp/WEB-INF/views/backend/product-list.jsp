@@ -124,8 +124,10 @@
 	                                                <th scope="col">ID</th>
 	                                                <th scope="col">Loại sản phẩm</th>
 	                                                <th scope="col">Tên</th>
+	                                                <th scope="col">Số lượng</th>
 	                                                <th scope="col">Giá</th>
 	                                                <th scope="col">Giảm giá</th>
+	                                                <th scope="col">Size</th>
 	                                                <th scope="col">Ảnh</th>
 	                                                <th scope="col">Mô tả</th>
 	                                                <th scope="col">Mô tả chi tiết</th>
@@ -146,11 +148,12 @@
 	                                                <td>${product.id }</td>
 	                                                <td>${product.category.name }</td>
 	                                                <td>${product.name }</td>
+	                                                <td align="right">${product.productQuantity }</td>
 	                                                <td align="right">
 	                                                	<fmt:formatNumber value="${product.price }" minFractionDigits="0"></fmt:formatNumber>
 	                                                </td>
 	                                                <td align="right">${product.salePrice }</td>
-	                                                
+	                                                <td>${product.size }</td>
 	                                                <td>
 	                                                	<img width="40px" height="40px" 
 	                                                		src="${classpath }/FileUploads/${product.avatar }" class="light-logo">

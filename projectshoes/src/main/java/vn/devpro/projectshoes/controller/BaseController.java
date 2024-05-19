@@ -1,10 +1,12 @@
 package vn.devpro.projectshoes.controller;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 import vn.devpro.projectshoes.dto.Cart;
+import vn.devpro.projectshoes.model.Category;
 import vn.devpro.projectshoes.model.User;
+import vn.devpro.projectshoes.service.CategoryService;
 
 @Controller
 public class BaseController {
@@ -46,5 +50,13 @@ public class BaseController {
 			return true;
 		}
 		return false;
+	}
+	
+	// Hiển thị thông tin loại sản phẩm duyệt qua từng ID
+	@Autowired
+	private CategoryService categoryService;
+	@ModelAttribute("categories")
+	public List<Category> getCategory(final HttpServletRequest request) {
+	     return categoryService.findAllActive();
 	}
 }

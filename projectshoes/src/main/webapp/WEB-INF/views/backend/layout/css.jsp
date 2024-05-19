@@ -10,6 +10,8 @@
         min-width: 100%;
         white-space: nowrap; 
     }
-    .table-responsive 
+    .animate .flatpickr-innerContainer{
+    	display:block !important;
+    }
     
-    </style>
+</style>
