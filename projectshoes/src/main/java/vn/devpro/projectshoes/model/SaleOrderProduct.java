@@ -15,6 +15,9 @@ public class SaleOrderProduct extends BaseModel{
 	@Column(name = "quantity", nullable = true)
 	private int quantity;
 	
+	@Column(name = "size", length = 45, nullable = true)
+	private String size;
+	
 	@Column(name = "description", length = 500, nullable = true)
 	private String description;
 	
@@ -34,12 +37,13 @@ public class SaleOrderProduct extends BaseModel{
 
 
 	public SaleOrderProduct(Integer id, Date createDate, Date updateDate, Boolean status, int quantity,
-			String description, Product product, SaleOrder saleorder) {
+			String description, Product product, SaleOrder saleorder, String size) {
 		super(id, createDate, updateDate, status);
 		this.quantity = quantity;
 		this.description = description;
 		this.product = product;
 		this.saleorder = saleorder;
+		this.size = size;
 	}
 
 
@@ -81,6 +85,14 @@ public class SaleOrderProduct extends BaseModel{
 	public void setSaleorder(SaleOrder saleorder) {
 		this.saleorder = saleorder;
 	}
-	
-	
+
+
+	public String getSize() {
+		return size;
+	}
+
+
+	public void setSize(String size) {
+		this.size = size;
+	}
 }

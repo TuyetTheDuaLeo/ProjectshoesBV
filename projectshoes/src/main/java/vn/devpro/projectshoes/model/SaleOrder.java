@@ -145,5 +145,4 @@ public class SaleOrder extends BaseModel{
 	public void setSaleOrderProducts(Set<SaleOrderProduct> saleOrderProducts) {
 		SaleOrderProducts = saleOrderProducts;
 	}
-
 }

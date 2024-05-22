@@ -204,10 +204,15 @@
                 <div class="main_container collection col-lg-9 col-md-12 col-sm-12 col-12">
                     <div class="category-products products category-products-grids clearfix">
                         <div class="products-view products-view-grid row">
-                        <c:forEach items = "${products }" var="product">
+                        <c:forEach items = "${products }" var="product" varStatus="loop">
                             <div class=" mb-3 col-lg-4 col-md-4 col-sm-6 col-6 product-col">
                                 <a href="${classpath }/product-detail/${product.id}">
                                     <div class="card">
+                                    	<c:if test="${product.salePrice > 0}">
+											<div class="sale-flash product-thumbnail sale" data-sale="<fmt:formatNumber value="${discounts[loop.index] * -1}" type="number" pattern="#,##0'%'" />">
+
+											</div>
+										</c:if>
                                         <div class="btn-action">
                                             <a href="" title="Sản phẩm yêu thích">
                                                 <svg class="icon-heart" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
@@ -234,8 +239,15 @@
                                           <h3 class="card-title"><a href="${classpath }/product-detail/${product.id}">${product.name }</a></h3>
                                           <div class="bottom-action">
                                             <div class="price-box">
-                                            	<fmt:formatNumber value="${product.price }" minFractionDigits="0"></fmt:formatNumber>
-                                            	<sup>vnd</sup>
+                                            	<c:choose>
+													<c:when test="${product.salePrice > 0}">
+														<span class="new-price"><fmt:formatNumber value="${product.salePrice}" pattern="#,##0vnd" /> </span>
+														<span class="old-price compare-price"><fmt:formatNumber value="${product.price}" pattern="#,##0vnd" /> </span>
+													</c:when>
+													<c:otherwise>
+														<span class="default-price"><fmt:formatNumber value="${product.price}" pattern="#,##0vnd" /> </span>
+													</c:otherwise>
+												</c:choose>
                                             </div>
                                           </div>
                                         </div>

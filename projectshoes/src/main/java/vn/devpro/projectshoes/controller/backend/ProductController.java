@@ -119,7 +119,7 @@ public class ProductController extends BaseController implements PsConstants{
 	
 	@RequestMapping(value = "add", method = RequestMethod.GET)
 	public String add(final Model model) {
-		List<User> users = userService.findAllActive();
+		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
 		
 		List<Category> categories = categoryService.findAll();
@@ -181,7 +181,7 @@ public class ProductController extends BaseController implements PsConstants{
 		Product product = productService.getById(productId);
 		
 		product.setStatus(false);
-		productService.saveOrUpdate(product);
+		productService.inactiveProduct(product);
 		return "redirect:/admin/product/list";
 	}
 }

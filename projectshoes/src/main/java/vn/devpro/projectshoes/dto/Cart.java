@@ -5,7 +5,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Cart {
 	// Danh sach san pham trong gio hang
 		private List<ProductCart> productCarts = new ArrayList<ProductCart>();
@@ -26,13 +25,14 @@ public class Cart {
 			return total;
 		}
 		// Tim san pham trong gio hang theo id
-		public int findProductById(int id) {
-			for(int index = 0; index < productCarts.size(); index++) {
-				if(productCarts.get(index).getProductId() == id) {
-					return index;
-				}
-			}
-			return -1;
+		public int findProductByIdAndSize(int productId, String size) {
+		    for (int index = 0; index < productCarts.size(); index++) {
+		        ProductCart productCart = productCarts.get(index);
+		        if (productCart.getProductId() == productId && productCart.getSize().equals(size)) {
+		            return index;
+		        }
+		    }
+		    return -1;
 		}
 		public Cart() {
 			super();

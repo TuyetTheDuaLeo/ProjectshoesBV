@@ -1,6 +1,9 @@
 package vn.devpro.projectshoes.controller;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import vn.devpro.projectshoes.dto.Cart;
 import vn.devpro.projectshoes.model.Category;
+import vn.devpro.projectshoes.model.Product;
 import vn.devpro.projectshoes.model.User;
 import vn.devpro.projectshoes.service.CategoryService;
 
@@ -58,5 +62,21 @@ public class BaseController {
 	@ModelAttribute("categories")
 	public List<Category> getCategory(final HttpServletRequest request) {
 	     return categoryService.findAllActive();
+	}
+	// Phương thức để tính toán giá trị discount cho danh sách sản phẩm
+	public List<BigDecimal> calculateDiscounts(List<Product> products) {
+	    List<BigDecimal> discounts = new ArrayList<>();
+	    for (Product product : products) {
+	        BigDecimal discount = BigDecimal.ZERO;
+	        if (product.getPrice() != null && product.getSalePrice() != null &&
+	                product.getPrice().compareTo(BigDecimal.ZERO) > 0 &&
+	                product.getSalePrice().compareTo(BigDecimal.ZERO) > 0) {
+	            BigDecimal val = product.getPrice().subtract(product.getSalePrice());
+	            discount = val.divide(product.getPrice(), 2, RoundingMode.HALF_UP)
+	                    .multiply(BigDecimal.valueOf(100));
+	        }
+	        discounts.add(discount);
+	    }
+	    return discounts;
 	}
 }

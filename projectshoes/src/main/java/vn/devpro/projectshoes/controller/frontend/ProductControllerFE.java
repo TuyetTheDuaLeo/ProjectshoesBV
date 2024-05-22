@@ -1,5 +1,6 @@
 package vn.devpro.projectshoes.controller.frontend;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,9 +52,10 @@ public class ProductControllerFE extends BaseController implements PsConstants {
 		if(!StringUtils.isEmpty(sortCheck)) {
 			searchModel.setSortCheck(sortCheck);
 		}
-		
 		List<Product> products = productService.searchProductFE(searchModel);
+		List<BigDecimal> discounts = calculateDiscounts(products);
 		model.addAttribute("products",products);
+		model.addAttribute("discounts", discounts);
 		return "frontend/allproduct";
 	}
 }

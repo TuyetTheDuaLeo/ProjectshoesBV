@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${classpath }/frontend/css/product_details.css">
     <jsp:include page="/WEB-INF/views/frontend/layout/css.jsp"></jsp:include>
+    <link rel="stylesheet" href="${classpath }/frontend/css/demo.css">
     <title>${title }</title>
 </head>
 <body>
@@ -79,10 +80,6 @@
                             <h1 class="title-head">${product.name }</h1>
                             <div class="product-top clearfix">
                                 <div class="sku-product clearfix">
-                                    <span itemprop="brand">
-                                        Thương hiệu
-                                        <strong>Niken</strong>
-                                    </span>
                                     <span class="variant-sku" content="Ultraboost4.0">
                                         Mã
                                         <strong>Ultraboost4.0</strong>
@@ -103,12 +100,12 @@
                                 <div class="form-product">
                                    <div class="select-swatch">
                                         <div class=" swatch clearfix">
-                                            <div class="options-title">
-                                                Kích thước: 
-                                                <span class="var"></span>
+                                        <div class="options-title">
+                                                Số lượng còn: 
+                                                <span class="var">${product.productQuantity }</span>
                                             </div>
                                             <div class="detail-size d-flex align-items-center">
-												<span class="details-size-title"></span>
+												<span class="details-size-title">Kích thước:</span>
 												<div class="size-list">
 													<c:forEach var="size" items="${sizes}" varStatus="loop">
 														<c:forEach var="individualSize" items="${fn:split(size, ',')}" varStatus="innerLoop">
@@ -122,10 +119,8 @@
 														</c:forEach>
 													</c:forEach>
 												</div>
-
 											</div>
                                         </div>
-
                                    </div>
                                    <div class="clearfix from-action-addcart">
                                         <div class="qty-ant clearfix custom-btn-number">
@@ -215,10 +210,12 @@
     	addToCart = function(_productId, event, _productName){
     		event.preventDefault();
     		// alert("Thêm " + _quantity + "sản phẩm'" + _productName + "' vào giỏ hàng");
+    		let _size = $("input[name='size']:checked").val();
     		let data = {
     				productId: _productId, // lấy theo id
     				quantity: jQuery("#quantity").val(),
     				productName: _productName,
+    				size: _size,
     		};
     		
     		// $ === jQuery

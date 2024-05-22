@@ -99,7 +99,7 @@
 														<th scope="col">Điện thoại</th>
 														<th scope="col">Địa chỉ</th>
 														<th scope="col">Tổng tiền</th>
-														<th scope="col">Người tạo</th>
+														<th scope="col">Người cập nhập</th>
 														<!-- <th scope="col">Update by</th> -->
 														<th scope="col">Ngày tạo</th>
 														<th scope="col">Ngày giao hàng</th>

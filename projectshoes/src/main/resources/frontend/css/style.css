@@ -475,6 +475,12 @@ svg {
     position: relative;
     overflow: hidden;
 }
+.card .images{
+	height: 268px;
+}
+.card .images .card-img{
+	height: 100%;
+}
 
 .images:hover .image-overlay {
     opacity: 1;

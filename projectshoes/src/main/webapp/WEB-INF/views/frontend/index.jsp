@@ -92,15 +92,20 @@
             <div class="section_product_new">
                 <div class="container3">
                     <div class="block-title">
-                        <h2><a href="" title="Sản phẩm mới">Sản phẩm mới</a></h2>
-                        <p class="title-des">Các sản phẩm mới có tại cửa hàng</p>
+                        <h2><a href="" title="Sản phẩm mới">Sản phẩm bán chạy</a></h2>
+                        <p class="title-des">Các sản phẩm bán chạy có tại cửa hàng</p>
                     </div>
                     <div class="block-product">
                         <div class="row">
-                        <c:forEach items="${products }" var="product">
+                        <c:forEach items="${isHotProducts }" var="product" varStatus = "loop">
                             <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
                                 <a href="${classpath }/product-detail/${product.id}">
                                     <div class="card" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px">
+                                    	<c:if test="${product.salePrice > 0}">
+											<div class="sale-flash product-thumbnail sale" data-sale="<fmt:formatNumber value="${discountsForHotProducts[loop.index] * -1}" type="number" pattern="#,##0'%'" />">
+
+											</div>
+										</c:if>
                                         <div class="btn-action">
                                             <a href="" title="Sản phẩm yêu thích">
                                                 <svg class="icon-heart" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
@@ -132,8 +137,15 @@
                                           </span>
                                           <div class="bottom-action">
                                             <div class="price-box">
-                                            	<fmt:formatNumber value="${product.price }" minFractionDigits="0"></fmt:formatNumber>
-                                            	<sup>vnd</sup>
+                                            	<c:choose>
+													<c:when test="${product.salePrice > 0}">
+														<span class="new-price"><fmt:formatNumber value="${product.salePrice}" pattern="#,##0vnd" /> </span>
+														<span class="old-price compare-price"><fmt:formatNumber value="${product.price}" pattern="#,##0vnd" /> </span>
+													</c:when>
+													<c:otherwise>
+														<span class="default-price"><fmt:formatNumber value="${product.price}" pattern="#,##0vnd" /> </span>
+													</c:otherwise>
+												</c:choose>
                                             </div>
                                           </div>
                                         </div>
@@ -153,8 +165,8 @@
             <div class="section_best_sellers">
                 <div class="container3">
                     <div class="block-title">
-                        <h2><a href="" title="Sản phẩm mới">Sản phẩm bán chạy</a></h2>
-                        <p class="title-des">Các sản phẩm bán chạy tại cửa hàng</p>
+                        <h2><a href="" title="Sản phẩm mới">Sản phẩm mới</a></h2>
+                        <p class="title-des">Các sản phẩm mới tại cửa hàng</p>
                     </div>
                     <div class="banner-product">
                         <a href="" title="Sản phẩm bán chạy">
@@ -163,82 +175,15 @@
                     </div>
                     <div class="block-product">
                         <div class="row">
+                             <c:forEach items="${products }" var="product" varStatus = "loop">
                             <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <a href="">
-                                    <div class="card">
-                                        <div class="btn-action">
-                                            <a href="" title="Sản phẩm yêu thích">
-                                                <svg class="icon-heart" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                                                    <path d="M1.30469 7.70401C0.413933 5.13899 1.5274 1.87444 3.97697 1.17489C5.3131 0.708524 7.09458 1.17487 7.98533 2.57397C8.87608 1.17487 10.6576 0.708524 11.9937 1.17489C14.6659 2.10763 15.5567 5.13899 14.666 7.70401C13.5525 11.6681 9.09877 14 7.98533 14C6.87189 13.7668 2.64081 11.9013 1.30469 7.70401Z" stroke="#949494" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                            </a>
-                                            <div class="action-cart">
-                                                <button title="Thêm vào giỏ hàng">
-                                                    <svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
-                                                        <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <path d="M2.68421 6.05273L1.8421 6.05273" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52631 11.1055L2.6842 11.1055" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52632 8.5791L1 8.5791" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M5.01003 3.94737L6.72226 11.6163C6.87534 12.3019 7.48373 12.7895 8.18622 12.7895H14.6659C15.3684 12.7895 15.9768 12.3019 16.1299 11.6163L17.4342 5.77422C17.6435 4.83706 16.9305 3.94737 15.9703 3.94737H14.6341H12.7895M5.01003 3.94737L4.50902 2.10616C4.33133 1.45315 3.73839 1 3.06164 1H1M5.01003 3.94737H8.21804H9.42105" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="images">
-                                            <img src="${classpath}/frontend/images/sp1.webp" class="card-img-top card-img" alt="...">
-                                        </div>
-                                        <div class="card-body">
-                                          <h3 class="card-title"><a href="">Nike Blazer x sacai x KAWS</a></h3>
-                                          <span class="brand">Niken</span>
-                                          <div class="bottom-action">
-                                            <div class="price-box">5.000.000đ</div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <a href="">
-                                    <div class="card">
-                                        <div class="btn-action">
-                                            <a href="" title="Sản phẩm yêu thích">
-                                                <svg class="icon-heart" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                                                    <path d="M1.30469 7.70401C0.413933 5.13899 1.5274 1.87444 3.97697 1.17489C5.3131 0.708524 7.09458 1.17487 7.98533 2.57397C8.87608 1.17487 10.6576 0.708524 11.9937 1.17489C14.6659 2.10763 15.5567 5.13899 14.666 7.70401C13.5525 11.6681 9.09877 14 7.98533 14C6.87189 13.7668 2.64081 11.9013 1.30469 7.70401Z" stroke="#949494" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                            </a>
-                                            <div class="action-cart">
-                                                <button title="Thêm vào giỏ hàng">
-                                                    <svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
-                                                        <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <path d="M2.68421 6.05273L1.8421 6.05273" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52631 11.1055L2.6842 11.1055" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52632 8.5791L1 8.5791" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M5.01003 3.94737L6.72226 11.6163C6.87534 12.3019 7.48373 12.7895 8.18622 12.7895H14.6659C15.3684 12.7895 15.9768 12.3019 16.1299 11.6163L17.4342 5.77422C17.6435 4.83706 16.9305 3.94737 15.9703 3.94737H14.6341H12.7895M5.01003 3.94737L4.50902 2.10616C4.33133 1.45315 3.73839 1 3.06164 1H1M5.01003 3.94737H8.21804H9.42105" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="images">
-                                            <img src="${classpath}/frontend/images/sp2.webp" class="card-img-top card-img" alt="...">
-                                        </div>
-                                        <div class="card-body">
-                                          <h3 class="card-title"><a href="">Nike Blazer x sacai x KAWS</a></h3>
-                                          <span class="brand">Niken</span>
-                                          <div class="bottom-action">
-                                            <div class="price-box">3.900.000đ</div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <a href="">
-                                    <div class="card">
-                                        <div class="product-thumbnail sale " data-sale="-33%">
+                                <a href="${classpath }/product-detail/${product.id}">
+                                    <div class="card" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px">
+                                    	<c:if test="${product.salePrice > 0}">
+											<div class="sale-flash product-thumbnail sale" data-sale="<fmt:formatNumber value="${discountsForAllProducts[loop.index] * -1}" type="number" pattern="#,##0'%'" />">
 
-                                        </div>
+											</div>
+										</c:if>
                                         <div class="btn-action">
                                             <a href="" title="Sản phẩm yêu thích">
                                                 <svg class="icon-heart" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
@@ -247,7 +192,8 @@
                                             </a>
                                             <div class="action-cart">
                                                 <button title="Thêm vào giỏ hàng">
-                                                    <svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
+                                                    <a onclick="addToCart(${product.id}, 1, '${product.name }')">
+                                                    	<svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
                                                         <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
                                                         <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
                                                         <path d="M2.68421 6.05273L1.8421 6.05273" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
@@ -255,203 +201,39 @@
                                                         <path d="M3.52632 8.5791L1 8.5791" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
                                                         <path d="M5.01003 3.94737L6.72226 11.6163C6.87534 12.3019 7.48373 12.7895 8.18622 12.7895H14.6659C15.3684 12.7895 15.9768 12.3019 16.1299 11.6163L17.4342 5.77422C17.6435 4.83706 16.9305 3.94737 15.9703 3.94737H14.6341H12.7895M5.01003 3.94737L4.50902 2.10616C4.33133 1.45315 3.73839 1 3.06164 1H1M5.01003 3.94737H8.21804H9.42105" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
                                                     </svg>
+                                                    </a>
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="images">
-                                            <img src="${classpath}/frontend/images/sp3.webp" class="card-img-top card-img" alt="...">
+                                            <img src="${classpath}/FileUploads/${product.avatar}" class="card-img-top card-img" alt="...">
                                         </div>
                                         <div class="card-body">
-                                          <h3 class="card-title"><a href="">Nike Blazer x sacai x KAWS</a></h3>
-                                          <span class="brand">Niken</span>
+                                          <h3 class="card-title"><a href="${classpath }/product-detail/${product.id}">${product.name }</a></h3>
+                                          <span class="brand">
+                                          		${category.name }
+                                          </span>
                                           <div class="bottom-action">
                                             <div class="price-box">
-                                                <span class="price">2.000.000đ</span>
-                                                <span class="compare-price">3.000.000đ</span>
+                                            	<c:choose>
+													<c:when test="${product.salePrice > 0}">
+														<span class="new-price"><fmt:formatNumber value="${product.salePrice}" pattern="#,##0vnd" /> </span>
+														<span class="old-price compare-price"><fmt:formatNumber value="${product.price}" pattern="#,##0vnd" /> </span>
+													</c:when>
+													<c:otherwise>
+														<span class="default-price"><fmt:formatNumber value="${product.price}" pattern="#,##0vnd" /> </span>
+													</c:otherwise>
+												</c:choose>
                                             </div>
                                           </div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <a href="">
-                                    <div class="card">
-                                        <div class="btn-action">
-                                            <a href="" title="Sản phẩm yêu thích">
-                                                <svg class="icon-heart" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                                                    <path d="M1.30469 7.70401C0.413933 5.13899 1.5274 1.87444 3.97697 1.17489C5.3131 0.708524 7.09458 1.17487 7.98533 2.57397C8.87608 1.17487 10.6576 0.708524 11.9937 1.17489C14.6659 2.10763 15.5567 5.13899 14.666 7.70401C13.5525 11.6681 9.09877 14 7.98533 14C6.87189 13.7668 2.64081 11.9013 1.30469 7.70401Z" stroke="#949494" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                            </a>
-                                            <div class="action-cart">
-                                                <button title="Thêm vào giỏ hàng">
-                                                    <svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
-                                                        <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <path d="M2.68421 6.05273L1.8421 6.05273" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52631 11.1055L2.6842 11.1055" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52632 8.5791L1 8.5791" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M5.01003 3.94737L6.72226 11.6163C6.87534 12.3019 7.48373 12.7895 8.18622 12.7895H14.6659C15.3684 12.7895 15.9768 12.3019 16.1299 11.6163L17.4342 5.77422C17.6435 4.83706 16.9305 3.94737 15.9703 3.94737H14.6341H12.7895M5.01003 3.94737L4.50902 2.10616C4.33133 1.45315 3.73839 1 3.06164 1H1M5.01003 3.94737H8.21804H9.42105" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="images">
-                                            <img src="${classpath}/frontend/images/sp4.webp" class="card-img-top card-img" alt="...">
-                                        </div>
-                                        <div class="card-body">
-                                          <h3 class="card-title"><a href="">Nike Blazer x sacai x KAWS</a></h3>
-                                          <span class="brand">Niken</span>
-                                          <div class="bottom-action">
-                                            <div class="price-box">2.500.000đ</div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <a href="">
-                                    <div class="card">
-                                        <div class="btn-action">
-                                            <a href="" title="Sản phẩm yêu thích">
-                                                <svg class="icon-heart" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                                                    <path d="M1.30469 7.70401C0.413933 5.13899 1.5274 1.87444 3.97697 1.17489C5.3131 0.708524 7.09458 1.17487 7.98533 2.57397C8.87608 1.17487 10.6576 0.708524 11.9937 1.17489C14.6659 2.10763 15.5567 5.13899 14.666 7.70401C13.5525 11.6681 9.09877 14 7.98533 14C6.87189 13.7668 2.64081 11.9013 1.30469 7.70401Z" stroke="#949494" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                            </a>
-                                            <div class="action-cart">
-                                                <button title="Thêm vào giỏ hàng">
-                                                    <svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
-                                                        <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <path d="M2.68421 6.05273L1.8421 6.05273" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52631 11.1055L2.6842 11.1055" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52632 8.5791L1 8.5791" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M5.01003 3.94737L6.72226 11.6163C6.87534 12.3019 7.48373 12.7895 8.18622 12.7895H14.6659C15.3684 12.7895 15.9768 12.3019 16.1299 11.6163L17.4342 5.77422C17.6435 4.83706 16.9305 3.94737 15.9703 3.94737H14.6341H12.7895M5.01003 3.94737L4.50902 2.10616C4.33133 1.45315 3.73839 1 3.06164 1H1M5.01003 3.94737H8.21804H9.42105" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="images">
-                                            <img src="${classpath}/frontend/images/sp5.webp" class="card-img-top card-img" alt="...">
-                                        </div>
-                                        <div class="card-body">
-                                          <h3 class="card-title"><a href="">Nike Blazer x sacai x KAWS</a></h3>
-                                          <span class="brand">Niken</span>
-                                          <div class="bottom-action">
-                                            <div class="price-box">5.100.000đ</div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <a href="">
-                                    <div class="card">
-                                        <div class="btn-action">
-                                            <a href="" title="Sản phẩm yêu thích">
-                                                <svg class="icon-heart" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                                                    <path d="M1.30469 7.70401C0.413933 5.13899 1.5274 1.87444 3.97697 1.17489C5.3131 0.708524 7.09458 1.17487 7.98533 2.57397C8.87608 1.17487 10.6576 0.708524 11.9937 1.17489C14.6659 2.10763 15.5567 5.13899 14.666 7.70401C13.5525 11.6681 9.09877 14 7.98533 14C6.87189 13.7668 2.64081 11.9013 1.30469 7.70401Z" stroke="#949494" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                            </a>
-                                            <div class="action-cart">
-                                                <button title="Thêm vào giỏ hàng">
-                                                    <svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
-                                                        <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <path d="M2.68421 6.05273L1.8421 6.05273" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52631 11.1055L2.6842 11.1055" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52632 8.5791L1 8.5791" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M5.01003 3.94737L6.72226 11.6163C6.87534 12.3019 7.48373 12.7895 8.18622 12.7895H14.6659C15.3684 12.7895 15.9768 12.3019 16.1299 11.6163L17.4342 5.77422C17.6435 4.83706 16.9305 3.94737 15.9703 3.94737H14.6341H12.7895M5.01003 3.94737L4.50902 2.10616C4.33133 1.45315 3.73839 1 3.06164 1H1M5.01003 3.94737H8.21804H9.42105" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="images">
-                                            <img src="${classpath}/frontend/images/sp6.webp" class="card-img-top card-img" alt="...">
-                                        </div>
-                                        <div class="card-body">
-                                          <h3 class="card-title"><a href="">Nike Blazer x sacai x KAWS</a></h3>
-                                          <span class="brand">Niken</span>
-                                          <div class="bottom-action">
-                                            <div class="price-box">5.100.000đ</div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <a href="">
-                                    <div class="card">
-                                        <div class="btn-action">
-                                            <a href="" title="Sản phẩm yêu thích">
-                                                <svg class="icon-heart" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                                                    <path d="M1.30469 7.70401C0.413933 5.13899 1.5274 1.87444 3.97697 1.17489C5.3131 0.708524 7.09458 1.17487 7.98533 2.57397C8.87608 1.17487 10.6576 0.708524 11.9937 1.17489C14.6659 2.10763 15.5567 5.13899 14.666 7.70401C13.5525 11.6681 9.09877 14 7.98533 14C6.87189 13.7668 2.64081 11.9013 1.30469 7.70401Z" stroke="#949494" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                            </a>
-                                            <div class="action-cart">
-                                                <button title="Thêm vào giỏ hàng">
-                                                    <svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
-                                                        <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <path d="M2.68421 6.05273L1.8421 6.05273" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52631 11.1055L2.6842 11.1055" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52632 8.5791L1 8.5791" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M5.01003 3.94737L6.72226 11.6163C6.87534 12.3019 7.48373 12.7895 8.18622 12.7895H14.6659C15.3684 12.7895 15.9768 12.3019 16.1299 11.6163L17.4342 5.77422C17.6435 4.83706 16.9305 3.94737 15.9703 3.94737H14.6341H12.7895M5.01003 3.94737L4.50902 2.10616C4.33133 1.45315 3.73839 1 3.06164 1H1M5.01003 3.94737H8.21804H9.42105" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="images">
-                                            <img src="${classpath}/frontend/images/sp7.jpg" class="card-img-top card-img" alt="...">
-                                        </div>
-                                        <div class="card-body">
-                                          <h3 class="card-title"><a href="">Nike Blazer x sacai x KAWS</a></h3>
-                                          <span class="brand">Niken</span>
-                                          <div class="bottom-action">
-                                            <div class="price-box">5.829.000đ</div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <a href="">
-                                    <div class="card">
-                                        <div class="btn-action">
-                                            <a href="" title="Sản phẩm yêu thích">
-                                                <svg class="icon-heart" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                                                    <path d="M1.30469 7.70401C0.413933 5.13899 1.5274 1.87444 3.97697 1.17489C5.3131 0.708524 7.09458 1.17487 7.98533 2.57397C8.87608 1.17487 10.6576 0.708524 11.9937 1.17489C14.6659 2.10763 15.5567 5.13899 14.666 7.70401C13.5525 11.6681 9.09877 14 7.98533 14C6.87189 13.7668 2.64081 11.9013 1.30469 7.70401Z" stroke="#949494" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                            </a>
-                                            <div class="action-cart">
-                                                <button title="Thêm vào giỏ hàng">
-                                                    <svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
-                                                        <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
-                                                        <path d="M2.68421 6.05273L1.8421 6.05273" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52631 11.1055L2.6842 11.1055" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M3.52632 8.5791L1 8.5791" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                        <path d="M5.01003 3.94737L6.72226 11.6163C6.87534 12.3019 7.48373 12.7895 8.18622 12.7895H14.6659C15.3684 12.7895 15.9768 12.3019 16.1299 11.6163L17.4342 5.77422C17.6435 4.83706 16.9305 3.94737 15.9703 3.94737H14.6341H12.7895M5.01003 3.94737L4.50902 2.10616C4.33133 1.45315 3.73839 1 3.06164 1H1M5.01003 3.94737H8.21804H9.42105" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="images">
-                                            <img src="${classpath}/frontend/images/sp8.webp" class="card-img-top card-img" alt="...">
-                                        </div>
-                                        <div class="card-body">
-                                          <h3 class="card-title"><a href="">Nike Blazer x sacai x KAWS</a></h3>
-                                          <span class="brand">Niken</span>
-                                          <div class="bottom-action">
-                                            <div class="price-box">4.829.000đ</div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+                           </c:forEach> 
                         </div>
                         <div class="view-more">
-                            <a href="" title="Xem tất cả">Xem tất cả</a>
+                            <a href="${classpath }/allproduct" title="Xem tất cả">Xem tất cả</a>
                         </div>
                     </div>
                 </div>

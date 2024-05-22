@@ -26,8 +26,7 @@ public abstract class BaseService <E extends BaseModel> {
 	@SuppressWarnings("unchecked")
 	public List<E> findAll(){
 		Table table = clazz().getAnnotation(Table.class);
-		return(List<E>) entityManager.createNativeQuery("SELECT *FROM " + table.name(), 
-				clazz()).getResultList();
+		return(List<E>) entityManager.createNativeQuery("SELECT *FROM " + table.name(), clazz()).getResultList();
 		
 	}
 	//Them moi hoac sua mot ban ghi

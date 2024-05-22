@@ -3,7 +3,7 @@
 <nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="index.html">
-          <span class="align-middle">Admin</span>
+          <span class="align-middle">Quản trị hệ thống</span>
         </a>
 
 				<ul class="sidebar-nav">
@@ -14,7 +14,7 @@
             			</a>
 					</li>
 					<li class="sidebar-header">
-						SYSTEM ADMINISTRATION
+						DANH MỤC QUẢN TRỊ
 					</li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="${classpath}/admin/category/list">

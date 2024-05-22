@@ -83,11 +83,13 @@ public class UserController extends BaseController implements PsConstants{
 	}
 	@RequestMapping(value = "add-save", method = RequestMethod.POST)
 	public String addSave(final Model model,
-			@ModelAttribute("user") User user ) {
+			@ModelAttribute("user") User user,
+			HttpServletRequest request) {
+		Role role = roleService.getRoleByName("ADMIN");
 		String rawPassword = user.getPassword();
 	    String encodedPassword = new BCryptPasswordEncoder(4).encode(rawPassword);
 	    user.setPassword(encodedPassword);
-	    
+	    user.addRelationalUserRole(role);
 		userService.saveOrUpdate(user);
 		return "redirect:/admin/user/add";
 	}

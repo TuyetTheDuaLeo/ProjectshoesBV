@@ -29,6 +29,9 @@ public class ProductService extends BaseService<Product>  implements PsConstants
 	public List<Product> findAllActive(){
 		return super.executeNativeSql("Select * From tbl_product WHERE status = 1");
 	}
+	public List<Product> findAllActiveAndIsHot() {
+		return super.executeNativeSql("SELECT * FROM tbl_product WHERE status=1 AND is_hot = 1");
+	}
 	public boolean isUploadFile(MultipartFile file) {
 		if(file == null || file.getOriginalFilename().isEmpty()) {
 			return false;
@@ -242,4 +245,10 @@ public class ProductService extends BaseService<Product>  implements PsConstants
 			List<String> sizes = query.getResultList();
 			return sizes;
 		}
+		@Transactional
+		public void inactiveProduct(Product product) {
+			super.saveOrUpdate(product);
+		}
+		
+		
 }

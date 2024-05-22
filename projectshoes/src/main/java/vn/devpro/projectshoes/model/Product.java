@@ -1,6 +1,7 @@
 package vn.devpro.projectshoes.model;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

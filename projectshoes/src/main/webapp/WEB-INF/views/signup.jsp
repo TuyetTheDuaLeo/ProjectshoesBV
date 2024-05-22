@@ -55,7 +55,7 @@
                                     </li>
                                 </ul>
                                 <div id="nd-login" style="padding: 0 5%">
-                                    <form method="post" action="${classpath }/register" accept-charset="utf-8">
+                                    <form method="post" action="${classpath }/register" id="register-form" accept-charset="utf-8">
                                         <input type="hidden" name="FormType" value="customer_login">
                                         <input type="hidden" name="utf8" value="true">
                                         <div class="form-signup"></div>
@@ -65,56 +65,63 @@
                                                     Tên đăng nhập:
                                                     <span class="required">*</span>
                                                 </label>
-                                                <input name="username" type="text" autocomplete="off" placeholder="Username"
+                                                <input name="username" type="text" autocomplete="off" placeholder="Nhập tài khoản"
                                                 class="form-control form-control-lg" id="username">
+                                                <span class="form-message"></span>
                                             </fieldset>
                                             <fieldset class="form-group margin-bottom-10">
                                                 <label for="password">
                                                     Mật khẩu: 
                                                     <span class="required">*</span>
                                                 </label>
-                                                <input name="password" type="password" autocomplete="off" placeholder="Password"
+                                                <input name="password" type="password" autocomplete="off" placeholder="Nhập mật khẩu"
                                                 class="form-control form-control-lg" id="password">
+                                                <span class="form-message"></span>
                                             </fieldset>
                                             <fieldset class="form-group margin-bottom-10">
                                                 <label for="retypepassword">
                                                     Nhập lại mật khẩu:
                                                     <span class="required">*</span>
                                                 </label>
-                                                <input name="retypepassword" type="password" autocomplete="off" placeholder="Retypepassword"
+                                                <input name="retypepassword" type="password" autocomplete="off" placeholder="Nhập lại mật khẩu"
                                                 class="form-control form-control-lg" id="retypepassword">
+                                                <span class="form-message"></span>
                                             </fieldset>
                                             <fieldset class="form-group margin-bottom-10">
                                                 <label for="name">
                                                     Tên
                                                     <span class="required">*</span>
                                                 </label>
-                                                <input name="name" type="text" autocomplete="off" placeholder="Name"
+                                                <input name="name" type="text" autocomplete="off" placeholder="Nhập tên"
                                                 class="form-control form-control-lg" id="name">
+                                                <span class="form-message"></span>
                                             </fieldset>
                                             <fieldset class="form-group margin-bottom-10">
                                                 <label for="email">
                                                     Email
                                                     <span class="required">*</span>
                                                 </label>
-                                                <input name="email" type="email" autocomplete="off" placeholder="Email"
+                                                <input name="email" type="email" autocomplete="off" placeholder="Nhập email"
                                                 class="form-control form-control-lg" id="email">
+                                                <span class="form-message"></span>
                                             </fieldset>
                                             <fieldset class="form-group margin-bottom-0">
                                                 <label for="mobile">
                                                     Số điện thoại: 
                                                     <span class="required">*</span>
                                                 </label>
-                                                <input name="mobile" type="text" autocomplete="off" placeholder="Mobile"
+                                                <input name="mobile" type="text" autocomplete="off" placeholder="Nhập số điện thoại"
                                                 class="form-control form-control-lg" id="mobile">
+                                                <span class="form-message"></span>
                                             </fieldset>
                                             <fieldset class="form-group margin-bottom-0">
                                                 <label for="address">
                                                     Địa chỉ:
                                                     <span class="required">*</span>
                                                 </label>
-                                                <input name="address" type="text" autocomplete="off" placeholder="Address"
+                                                <input name="address" type="text" autocomplete="off" placeholder="Nhập địa chỉ"
                                                 class="form-control form-control-lg" id="address">
+                                                <span class="form-message"></span>
                                             </fieldset>
                                             <div class="clearfix">
 
@@ -152,11 +159,29 @@
         </div>
     </main>
     <jsp:include page="/WEB-INF/views/frontend/layout/footer.jsp"></jsp:include>
-    <script src="${classpath}/frontend/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="${classpath}/frontend/bootstrap/popper.min.js"></script>
-    <script src="${classpath}/frontend/bootstrap/bootstrap.min.js"></script>
-    <script src="${classpath}/frontend/slick/jquery-3.7.1.min.js"></script>
-    <script src="${classpath}/frontend/slick/slick.js"></script> 
-    <script src="${classpath}/frontend/js/index.js"></script>
+    <jsp:include page="/WEB-INF/views/frontend/layout/js.jsp"></jsp:include>
 </body>
+<script src="${classpath }/frontend/js/validator.js"></script>
+<script>
+// Mong muốn của chúng ta
+Validator({
+	form: '#register-form',
+	errorSelector: '.form-message',
+	rules: [
+		Validator.isRequired('#name'),
+		Validator.isRequired('#email'),
+		Validator.isEmail('#email'),
+		Validator.isRequired('#mobile'),
+		Validator.isMobile('#mobile'),
+		Validator.isRequired('#address'),
+		Validator.isRequired('#username'),
+		Validator.isRequired('#password'),
+		Validator.minLength('#password', 3),
+		Validator.isRequired('#retypepassword'),
+		Validator.isConfirmed('#retypepassword', function(){
+			return document.querySelector('#register-form #password').value;
+		}, 'Mật khẩu nhập lại không chính xác'),
+	]
+});
+</script>
 </html>

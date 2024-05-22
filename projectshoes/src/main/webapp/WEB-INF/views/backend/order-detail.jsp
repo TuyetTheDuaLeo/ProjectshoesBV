@@ -107,7 +107,7 @@
 																		height="40px"
 																		src="${classpath }/FileUploads/${item.product.avatar }"
 																		class="light-logo"></td>
-																	 <td>${product.size }</td>
+																	<td>${item.size }</td>
 																	<td class="text-right">${item.quantity}</td>
 																	<td class="text-right"><fmt:formatNumber
 																			value="${item.product.price }" minFractionDigits="0" /></td>
@@ -122,7 +122,7 @@
 													<div class="col-md-12 text-right">
 														<div class="form-group mb-4">
 															<h3>
-																Total sales: $
+																Tổng tiền: 
 																<fmt:formatNumber value="${totalSales }"
 																	minFractionDigits="0"></fmt:formatNumber>
 															</h3>

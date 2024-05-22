@@ -696,6 +696,13 @@ svg {
     overflow: hidden;
 }
 
+.card .images{
+	height: 268px;
+}
+.card .images .card-img{
+	height: 100%;
+}
+
 .card .images:hover .image-overlay {
     opacity: 1;
 }
