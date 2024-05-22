@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+	<!-- directive của JSTL -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +40,7 @@
                 <div class="col-lg-6 col-sm-12 leave-your-message order-md-2">
                     <h3>Liên hệ chúng tôi</h3>
                     <p class="p-bottom">Để liên hệ và nhận các thông tin khuyến mãi sớm nhất, Chúng tôi sẽ liên lạc với bạn trong thời gian sớm nhất</p>
-                    <form action="/contact-send" method="post" id="contact" accept-charset="UTF-8">
+                    <form action="/contact-send" method="post" id="contact">
                         <div class="row">
                             <div class="col-sm-12 col-xs-12">
                                 <fieldset class="form-group">
@@ -44,7 +48,7 @@
                                         Họ tên
                                         <span class="required">*</span>
                                     </label>
-                                    <input type="text" placeholder="Nhập họ tên" id="name" class="form-control  form-control-lg" name="txtName">
+                                    <input type="text" value ="${loginedUser.name }" placeholder="Nhập họ tên" id="txtName" class="form-control  form-control-lg" name="txtName">
                                 </fieldset>
                             </div>
                             <div class="col-sm-12 col-xs-12">
@@ -53,7 +57,7 @@
                                         Email
                                         <span class="required">*</span>
                                     </label>
-                                    <input type="mail" placeholder="Nhập địa chỉ email" id="mail" 
+                                    <input type="text" value ="${loginedUser.email }" placeholder="Nhập địa chỉ email" id="txtEmail" 
                                     class="form-control  form-control-lg" name="txtEmail">
                                 </fieldset>
                             </div>
@@ -63,8 +67,18 @@
                                         Điện thoại
                                         <span class="required">*</span>
                                     </label>
-                                    <input type="tel" placeholder="Nhập số điện thoại" id="tel" 
-                                    class="form-control  form-control-lg" name="txtPhone">
+                                    <input type="text" value="${loginedUser.mobile }" placeholder="Nhập số điện thoại" id="txtMobile" 
+                                    class="form-control  form-control-lg" name="txtMobile">
+                                </fieldset>
+                            </div>
+                            <div class="col-sm-12 col-xs-12">
+                                <fieldset class="form-group">
+                                    <label for="">
+                                        Địa chỉ
+                                        <span class="required">*</span>
+                                    </label>
+                                    <input type="text" value="${loginedUser.address }" placeholder="Nhập địa chỉ" id="txtAddress" 
+                                    class="form-control  form-control-lg" name="txtAddress">
                                 </fieldset>
                             </div>
                             <div class="col-sm-12 col-xs-12">
@@ -73,11 +87,11 @@
                                         Nội dung
                                         <span class="reuired">*</span>
                                     </label>
-                                    <textarea name="txtMessage" id="comment" rows="5" class="form-control form-control-lg" 
+                                    <textarea name="txtMessage" id="txtMessage" rows="10" class="form-control form-control-lg" 
                                     placeholder="Nội dung liên hệ"></textarea>
                                 </fieldset>
                                 <fieldset class="form-group">
-                                    <button type="submit" class="btn btn-blues btn-style btn-style-active">Gửi liên hệ ngay</button>
+                                    <button type="button" onclick="_notification()" class="btn btn-blues btn-style btn-style-active">Gửi liên hệ ngay</button>
                                 </fieldset>
                             </div>
                         </div>
@@ -93,5 +107,51 @@
     </main>
     <jsp:include page="/WEB-INF/views/frontend/layout/footer.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/frontend/layout/js.jsp"></jsp:include>
+    <script type="text/javascript">
+		function _notification() {
+			//javascript object
+			let data = {
+				
+				txtName : jQuery("#txtName").val(),
+				txtEmail : jQuery("#txtEmail").val(), //Get by Id
+				txtMobile : jQuery("#txtMobile").val(),
+				txtAddress : jQuery("#txtAddress").val(),
+				txtMessage : jQuery("#txtMessage").val(),
+				
+			};
+			
+			//$ === jQuery
+			jQuery.ajax({
+				url : "/contact-send",
+				type : "POST",
+				contentType: "application/json",
+				data : JSON.stringify(data),
+				dataType : "json", //Kieu du lieu tra ve tu controller la json
+				
+				success : function(jsonResult) {
+					//alert(jsonResult.code + ": " + jsonResult.message);
+					//$("#notification").html(jsonResult.message);
+					// Xóa các giá trị trong các trường của form	
+					if (jsonResult.errorMessage) {
+		                $('.toast-body-error').html(jsonResult.errorMessage);
+		                $('.toast-error').toast('show');
+		            } else {
+		                $('.toast-body-success').html(jsonResult.message);
+		                $('.toast-success').toast('show');
+		                $('#txtName').val('');
+						$('#txtMobile').val('');
+						$('#txtEmail').val('');
+						$('#txtAddress').val('');
+						$('#txtMessage').val('');
+		            }
+				},
+				
+				error : function(jqXhr, textStatus, errorMessage) {
+					 $('.toast-body-error').html('Đã có lỗi xảy ra: ' + errorMessage);
+			         $('.toast-error').toast('show');
+				}
+			});
+		}
+	</script>
 </body>
 </html>

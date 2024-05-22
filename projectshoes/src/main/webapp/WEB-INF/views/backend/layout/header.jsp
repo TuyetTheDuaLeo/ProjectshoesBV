@@ -47,7 +47,7 @@
             			</a>
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
+						<a class="sidebar-link" href="${classpath}/admin/customer-contact">
               			<i class="align-middle" data-feather="mail"></i> 
 			  			<span class="align-middle">Liên hệ</span>
             			</a>
