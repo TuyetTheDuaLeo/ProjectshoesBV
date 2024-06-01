@@ -56,7 +56,7 @@
 	                                    	<div class="col-md-6">
 												<div class="form-group mb-4">
 			                                        <label for="role">Quyền</label>
-			                                        <select class="form-control" id="role" name="role">
+			                                        <select class="form-control" id="roleId" name="roleId">
 			                                        	<c:forEach items="${roles }" var="role">
 			                                            	<option value="${role.id }" label="${role.name }"></option>
 			                                            </c:forEach>

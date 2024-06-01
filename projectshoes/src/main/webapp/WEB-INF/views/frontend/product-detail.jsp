@@ -90,8 +90,25 @@
                                 <div class="price-box clearfix">
                                     <div class="special-price">
                                         <span class="price product-price">
-                                        	<fmt:formatNumber value="${product.price }" minFractionDigits="0"></fmt:formatNumber>
-                                        	<sup>vnd</sup>
+                                        	<c:choose>
+												<c:when test="${product.salePrice > 0}">
+													<span class="new-price"> <fmt:formatNumber
+														value="${product.salePrice }" pattern="#,##0vnd" />
+													</span>
+													<span class="old-price"> <fmt:formatNumber
+														value="${product.price }" pattern="#,##0vnd" />
+													</span>
+													<span class="save-price"> <fmt:formatNumber
+														value="${discounts[loop.index]}" type="number"
+														pattern="#,##0'%'" />
+													</span>
+												</c:when>
+												<c:otherwise>
+													<span class="default-price"> <fmt:formatNumber
+														value="${product.price }" pattern="#,##0vnd" />
+													</span>
+												</c:otherwise>
+											</c:choose>
                                         </span>
                                     </div>
                                 </div>

@@ -9,7 +9,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -79,4 +82,20 @@ public class BaseController {
 	    }
 	    return discounts;
 	}
+	@ModelAttribute("superadmin")
+    public boolean isSuperAdmin() {
+        // Lấy thông tin người dùng hiện tại từ Spring Security
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            // Kiểm tra xem người dùng có thuộc quyền SuperAdmin hay không
+            for (GrantedAuthority authority : authentication.getAuthorities()) {
+                if (authority.getAuthority().equals("SUPERADMIN")) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

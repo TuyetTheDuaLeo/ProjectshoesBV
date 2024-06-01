@@ -112,7 +112,18 @@ public class ProductController extends BaseController implements PsConstants{
 		
 		model.addAttribute("products", products);
 		model.addAttribute("productSearch", productSearch);
-		
+		// Tính tổng số lượng còn của một loại
+		Integer totalProducts = 0;
+		for(Product product : allProducts) {
+		    Integer productTotal;
+		    if(product.getProductQuantity() == null) {
+		        productTotal = 0;
+		    } else {
+		        productTotal = product.getProductQuantity().intValue();
+		    }
+		    totalProducts += productTotal;
+		}
+		model.addAttribute("totalProducts", totalProducts);
 		return "backend/product-list";
 	}
 	

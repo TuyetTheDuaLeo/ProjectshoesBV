@@ -1,5 +1,6 @@
 package vn.devpro.projectshoes.controller.backend;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import vn.devpro.projectshoes.controller.BaseController;
 import vn.devpro.projectshoes.dto.PsConstants;
 import vn.devpro.projectshoes.dto.SearchModel;
@@ -82,25 +85,23 @@ public class UserController extends BaseController implements PsConstants{
 		return "backend/user-add";
 	}
 	@RequestMapping(value = "add-save", method = RequestMethod.POST)
-	public String addSave(final Model model,
-			@ModelAttribute("user") User user,
-			HttpServletRequest request) {
-		Role role = roleService.getRoleByName("ADMIN");
+	// Cách đẩy 1 dữ liệu sang view
+	public String addSave(final Model model, @ModelAttribute("user") User user, HttpServletRequest request) {
+		
+		int roleId = Integer.parseInt(request.getParameter("roleId"));
+		Role role = roleService.getRoleById(roleId);
 		String rawPassword = user.getPassword();
 	    String encodedPassword = new BCryptPasswordEncoder(4).encode(rawPassword);
 	    user.setPassword(encodedPassword);
 	    user.addRelationalUserRole(role);
 		userService.saveOrUpdate(user);
-		return "redirect:/admin/user/add";
+		return "redirect:/admin/user/list";
 	}
 	@RequestMapping(value = "edit/{UserId}", method = RequestMethod.GET)
 	public String edit(final Model model,
 			@PathVariable ("UserId") int UserId){
 		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
-		
-		List<Role> roles = roleService.findAll();
-		model.addAttribute("roles", roles);
 		
 		User user = userService.getById(UserId);
 		model.addAttribute("user", user);

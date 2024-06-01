@@ -90,9 +90,6 @@ public class RoleController extends BaseController implements PsConstants {
 		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
 		
-		List<Role> roles = roleService.findAll();
-		model.addAttribute("roles", roles);
-		
 		Role role = roleService.getById(RoleId);
 		model.addAttribute("role",role);
 		return "backend/role-edit";

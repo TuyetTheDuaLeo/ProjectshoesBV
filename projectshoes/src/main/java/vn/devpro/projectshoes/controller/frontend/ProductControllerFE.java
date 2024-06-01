@@ -1,9 +1,11 @@
 package vn.devpro.projectshoes.controller.frontend;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +26,7 @@ public class ProductControllerFE extends BaseController implements PsConstants {
 	private ProductService productService;
 	@RequestMapping(value = "/allproduct", method = RequestMethod.GET)
 	public String allProduct(final Model model,
-			HttpServletRequest request) {
+			final HttpServletRequest request, final HttpServletResponse response) throws IOException {
 		SearchModel searchModel = new SearchModel();
 		
 		//Tìm kiếm theo category
@@ -55,6 +57,7 @@ public class ProductControllerFE extends BaseController implements PsConstants {
 		List<Product> products = productService.searchProductFE(searchModel);
 		List<BigDecimal> discounts = calculateDiscounts(products);
 		model.addAttribute("products",products);
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("discounts", discounts);
 		return "frontend/allproduct";
 	}

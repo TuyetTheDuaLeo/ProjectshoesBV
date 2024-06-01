@@ -119,63 +119,16 @@
                                         </div>
                                     </div>
                                 </form>
-                                <div class="page-breadcrumb">
-                                    <div class="row">
-                                        <div class="main__products-title">
-                                            <p>Thông tin khách hàng</p>
-                                        </div>
-                                    </div>
-                                    <form action="${classpath }/cart-view" method="get">
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="form-body">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group mb-4">
-                                                                    <label for="name">Tên</label>
-                                                                    <input type="text" class="form-control" id="txtName" name="txtName" placeholder="your name" value="${loginedUser.name }">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group mb-4">
-                                                                    <label for="mobile">Số điện thoại</label>
-                                                                    <input type="text" class="form-control" id="txtMobile" name="txtMobile" placeholder="your phone number" value="${loginedUser.mobile }">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group mb-4">
-                                                                    <label for="phone">Email</label>
-                                                                    <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="your email" value="${loginedUser.email }">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group mb-4">
-                                                                    <label for="phone">Địa chỉ</label>
-                                                                    <input type="text" class="form-control" id="txtAddress" name="txtAddress" placeholder="your address" value="${loginedUser.address }">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group mb-4">
-                                                                    <a href="${classpath }/allproduct" class="btn btn-primary active" role="button" aria-pressed="true">Mua thêm</a>
-                                                                    <button class="btn btn-primary" onclick="_placeOrder(event)">Đặt hàng</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+							<div class="row">
+								<div class="col-md-12" align="center">
+									<div class="form-group mb-4">
+										<a href="${classpath }/allproduct" class="btn btn-primary active"
+											role="button" aria-pressed="true"> Mua thêm </a>
+										<a href="${classpath }/checkout" class="btn btn-primary active"
+											role="button" aria-pressed="true"> Đặt hàng </a>
+									</div>
+								</div>
+							</div>
                             </div>
                         </div>
                     </div>
@@ -200,15 +153,6 @@
 
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-12" align="center">
-									<div class="form-group mb-4">
-										<a href="${classpath }/allproduct" class="btn btn-primary active"
-											role="button" aria-pressed="true"> Mua thêm </a>
-									</div>
-								</div>
-							</div>
-
 						</c:otherwise>
                     </c:choose>
                 </div>
@@ -218,7 +162,7 @@
     <jsp:include page="/WEB-INF/views/frontend/layout/footer.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/frontend/layout/js.jsp"></jsp:include>
     <script type="text/javascript">
-    	updateProductQuantity = function(_productId, _quantity){
+     updateProductQuantity = function(_productId, _quantity){
     		let data = {
     			productId : _productId,// Lấy theo id
     			quantity: _quantity,
@@ -245,35 +189,62 @@
     			
     		});
     	}
-    </script>
-    <script type="text/javascript">
-		function _placeOrder(event){
-			 event.preventDefault();
-			// javascript object
-			let data = {
-				txtName : jQuery("#txtName").val(),
-				txtEmail : jQuery("#txtEmail").val(), // Get by Id
-				txtMobile : jQuery("#txtMobile").val(),
-				txtAddress : jQuery("#txtAddress").val(),
-			};
-			// $ === jQuery
-			jQuery.ajax({
-				url : "/place-order",
-				type : "POST",
-				contentType: "application/json",
-				data : JSON.stringify(data),
-				dataType: "json",// Kiểu dữ liệu trả về từ controller là json
-				
-				success: function(jsonResult){
-					alert(jsonResult.code + ": " + jsonResult.message);
-				},
-				
-				error : function(jqXhr, textStatus, errorMessage){
-					alert("An error occur" + errorMessage);
-				}
-			});
-		}
-    </script>
+    </script> 
+    
+ <%--   <!-- Tăng/giảm số lượng sản phẩm trong giỏ hàng -->
+	<script type="text/javascript">
+    updateProductQuantity = function(_productId, _quantity, _size) {
+        let data = {
+            productId: _productId,
+            quantity: _quantity,
+            size: _size // Thêm size vào dữ liệu gửi đi
+        };
+
+        //$ === jQuery
+        jQuery.ajax({
+            url: "/update-product-quantity",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: "json", // Kiểu dữ liệu trả về từ controller là json
+
+            success: function(jsonResult) {     
+                let totalProducts = jsonResult.totalCartProducts;
+                $("#totalCartProductsId").html(totalProducts);
+                
+                // Cập nhật số lượng sau khi bấm nút -, +
+                $("#productQuantity_" + jsonResult.productId).html(jsonResult.newQuantity);
+
+                // Định dạng giá trị thành tiền mới
+                let formattedNewTotalPrice = formatCurrency(jsonResult.newTotalPrice);
+                $("#productTotalPrice_" + jsonResult.productId).html(formattedNewTotalPrice + "₫");
+
+                // Định dạng tổng thành tiền cho toàn bộ giỏ hàng
+                let formattedTotalCartPrice = formatCurrency(jsonResult.totalCartPrice);
+                $("#totalCartPriceId").html(formattedTotalCartPrice + "₫");
+            },
+
+            error: function(jqXhr, textStatus, errorMessage) {
+                var response = JSON.parse(jqXhr.responseText);
+                var errorMessage = response.errorMessage;
+                $('.toast-body-error').html(errorMessage);
+                $('.toast-error').toast('show');
+            }
+        });
+    }
+
+    function formatCurrency(value) {
+        return new Intl.NumberFormat('vi-VN', { maximumSignificantDigits: 3 }).format(value);
+    }
+</script>
+
+	<script>
+	// Ngăn chặn hành vi mặc định
+	$('form').submit(function(event) {  
+		    event.preventDefault();
+		});
+	//END
+	</script>  --%>
     
 </body>
 </html>

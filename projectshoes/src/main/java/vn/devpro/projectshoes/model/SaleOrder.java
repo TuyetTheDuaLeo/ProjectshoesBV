@@ -35,6 +35,9 @@ public class SaleOrder extends BaseModel{
 	@Column(name = "customer_address", length = 300, nullable = true)
 	private String customerAddress;
 	
+	@Column(name = "payment_method", nullable = true)
+	private Boolean paymentMethod;
+	
 //---------Mapping Many-to-one : tbl_sale_order-to-tbl_user
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name ="user_id")
@@ -68,9 +71,25 @@ public class SaleOrder extends BaseModel{
 	}
 	
 	
+//	public SaleOrder(Integer id, Date createDate, Date updateDate, Boolean status, String code, BigDecimal total,
+//			String customerName, String customerMobile, String customerEmail, String customerAddress, User user,
+//			Boolean paymentMethod ,Set<SaleOrderProduct> saleOrderProducts, User userCreateSaleOrder, User userUpdateSaleOrde) {
+//		super(id, createDate, updateDate, status);
+//		this.code = code;
+//		this.total = total;
+//		this.customerName = customerName;
+//		this.customerMobile = customerMobile;
+//		this.customerEmail = customerEmail;
+//		this.customerAddress = customerAddress;
+//		this.user = user;
+//		SaleOrderProducts = saleOrderProducts;
+//		this.userCreateSaleOrder = userCreateSaleOrder;
+//		this.userUpdateSaleOrde = userUpdateSaleOrde;
+//	}
 	public SaleOrder(Integer id, Date createDate, Date updateDate, Boolean status, String code, BigDecimal total,
-			String customerName, String customerMobile, String customerEmail, String customerAddress, User user,
-			Set<SaleOrderProduct> saleOrderProducts, User userCreateSaleOrder, User userUpdateSaleOrde) {
+			String customerName, String customerMobile, String customerEmail, String customerAddress,
+			Boolean paymentMethod, User user, Set<SaleOrderProduct> saleOrderProducts, User userCreateSaleOrder,
+			User userUpdateSaleOrde) {
 		super(id, createDate, updateDate, status);
 		this.code = code;
 		this.total = total;
@@ -78,12 +97,12 @@ public class SaleOrder extends BaseModel{
 		this.customerMobile = customerMobile;
 		this.customerEmail = customerEmail;
 		this.customerAddress = customerAddress;
+		this.paymentMethod = paymentMethod;
 		this.user = user;
 		SaleOrderProducts = saleOrderProducts;
 		this.userCreateSaleOrder = userCreateSaleOrder;
 		this.userUpdateSaleOrde = userUpdateSaleOrde;
 	}
-	
 	
 	public User getUserCreateSaleOrder() {
 		return userCreateSaleOrder;
@@ -144,5 +163,11 @@ public class SaleOrder extends BaseModel{
 	}
 	public void setSaleOrderProducts(Set<SaleOrderProduct> saleOrderProducts) {
 		SaleOrderProducts = saleOrderProducts;
+	}
+	public Boolean getPaymentMethod() {
+		return paymentMethod;
+	}
+	public void setPaymentMethod(Boolean paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 }

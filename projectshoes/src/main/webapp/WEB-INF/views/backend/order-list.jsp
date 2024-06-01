@@ -140,7 +140,7 @@
 																role="button" class="btn btn-primary">Chi tiết</a>
 															<a
 																href="${classpath }/admin/order/edit/${saleOrder.id }"
-																role="button" class="btn btn-primary">Sửa</a>
+																role="button" class="btn btn-primary">Cập nhập</a>
 															<a
 																href="${classpath }/admin/order/delete/${saleOrder.id }"
 																role="button" class="btn btn-secondary">Xóa</a>

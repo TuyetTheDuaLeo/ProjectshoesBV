@@ -142,9 +142,8 @@ public class OrderController extends BaseController implements PsConstants{
 	// Cách đẩy 1 dữ liệu sang view
 	public String delete(final Model model, @PathVariable("saleOrderId") int saleOrderId) {
 
-		SaleOrder saleOrder = saleOrderService.getById(saleOrderId);
-		saleOrder.setStatus(false);
-		saleOrderService.inactiveSaleOrder(saleOrder);
+//		SaleOrder saleOrder = saleOrderService.getById(saleOrderId);
+		saleOrderService.deleteOrderById(saleOrderId);;
 		return "redirect:/admin/order/list";
 	}
 	@Autowired
@@ -166,7 +165,12 @@ public class OrderController extends BaseController implements PsConstants{
 		BigDecimal totalSales = BigDecimal.ZERO;
 		for (SaleOrderProduct saleOrderProduct : saleOrderProducts) {
 			int quantity = saleOrderProduct.getQuantity();
-			BigDecimal price = saleOrderProduct.getProduct().getPrice();
+			BigDecimal price;
+	        if (saleOrderProduct.getProduct().getSalePrice() != null && saleOrderProduct.getProduct().getSalePrice().compareTo(BigDecimal.ZERO) > 0) {
+	            price = saleOrderProduct.getProduct().getSalePrice();
+	        } else {
+	            price = saleOrderProduct.getProduct().getPrice();
+	        }
 			totalSales = totalSales.add(price.multiply(BigDecimal.valueOf(quantity)));
 		}
 		

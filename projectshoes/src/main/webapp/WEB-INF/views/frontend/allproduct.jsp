@@ -37,7 +37,7 @@
         </div>
     </nav>
     <main>
-    <form id="productSearch" action="/allproduct" method="GET">
+    <form id="productSearch" action="${classpath }/allproduct" method="GET">
         <div class="container cate-content">
             <div class="row">
                 <div class="sidebar left-content col-lg-3 col-md-12 col-sm-12 col-12">
@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="sort-cate-left aside-content filter-group">
                                     	<select class="custom-select" id="sortCheck" name="sortCheck">
-										<option value="" selected>Mặc định</option>
+										<option value="all" selected>Mặc định</option>
 										<option value="nameASC"<c:if test="${searchModel.sortCheck.equals('nameASC')}">selected</c:if>>Tên A - Z</option>
 										<option value="nameDESC"<c:if test="${searchModel.sortCheck.equals('nameDESC')}">selected</c:if>>Tên Z - A</option>
 										<option value="priceASC"<c:if test="${searchModel.sortCheck.equals('priceASC')}">selected</c:if>>Giá thấp đến cao</option>
@@ -63,7 +63,7 @@
 										</select>
                                     </div>
                                 </div> 
-                                <div class="aside-item filter-vendor">
+                                <%-- <div class="aside-item filter-vendor">
                                     <div class="aside-title">
                                         Thương hiệu
                                         <span class="nd-svg collapsible-plus">
@@ -131,7 +131,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --%>
                                 <div class="aside-item filter-price">
                                     <div class="aside-title">
                                         Giá sản phẩm
@@ -220,7 +220,7 @@
                                                 </svg>
                                             </a>
                                             <div class="action-cart">
-                                                <button title="Thêm vào giỏ hàng" onclick="addToCart(${product.id}, 1, '${product.name }')">
+                                                <button title="Thêm vào giỏ hàng" onclick="addToCart( event, ${product.id}, 1,'${product.name }')">
                                                     <svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
                                                         <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
                                                         <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
@@ -255,12 +255,12 @@
                                 </a>
                             </div>
                            	</c:forEach>
-                        <div class="col-md-6" >
+                        <%-- <div class="col-md-6" >
 							<!-- Phan trang -->
 							<div class="pagination float-right">
 									<div id="paging"></div>
 							</div>
-						</div>
+						</div> --%>
                     </div>
                 </div>
                </div>
@@ -273,8 +273,9 @@
     <jsp:include page="/WEB-INF/views/frontend/layout/js.jsp"></jsp:include>
     <%--addToCart --%>
 	<script type="text/javascript">
-		addToCart = function(_productId, _quantity, _productName){
+		addToCart = function(event,_productId, _quantity, _productName){
 			// alert("Thêm" + _quantity + "sản phẩm '" + _productName + "'vào giỏ hàng");
+			event.preventDefault();
 			let data = {
 					productId: _productId, // Lấy theo id
 					quantity: _quantity,
@@ -300,7 +301,7 @@
 			});
 		}
 	</script>
-	<script type="text/javascript">
+	<%-- <script type="text/javascript">
 		$( document ).ready(function() {
 			$("#paging").pagination({
 				currentPage: ${searchModel.currentPage}, //Trang hien tai
@@ -314,6 +315,6 @@
 				},
 			});
 		});
-	</script>
+	</script>--%>
 </body>
 </html>

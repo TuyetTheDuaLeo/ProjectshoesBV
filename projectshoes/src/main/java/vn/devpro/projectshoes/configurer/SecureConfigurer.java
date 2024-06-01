@@ -26,7 +26,7 @@ public class SecureConfigurer extends WebSecurityConfigurerAdapter{
 		// Các requests kiểu "/admin/**" phải login (xác thực)
 //		.antMatchers("/admin/**").authenticated() // step 1+2
 		// Các kiểu request kiểu /admin/** phải có role là ADMIN // step
-		.antMatchers("/admin/**").hasAuthority("ADMIN")
+		.antMatchers("/admin/**").hasAnyAuthority("SUPERADMIN","ADMIN")
 		
 		.and()
 		

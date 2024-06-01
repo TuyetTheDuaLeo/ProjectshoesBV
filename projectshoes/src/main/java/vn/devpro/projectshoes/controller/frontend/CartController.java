@@ -2,8 +2,6 @@ package vn.devpro.projectshoes.controller.frontend;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,23 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import vn.devpro.projectshoes.controller.BaseController;
 import vn.devpro.projectshoes.dto.Cart;
-import vn.devpro.projectshoes.dto.Customer;
 import vn.devpro.projectshoes.dto.ProductCart;
 import vn.devpro.projectshoes.dto.PsConstants;
 import vn.devpro.projectshoes.model.Product;
-import vn.devpro.projectshoes.model.SaleOrder;
-import vn.devpro.projectshoes.model.SaleOrderProduct;
-import vn.devpro.projectshoes.model.User;
 import vn.devpro.projectshoes.service.ProductService;
-import vn.devpro.projectshoes.service.SaleOrderService;
 
 @Controller
 public class CartController extends BaseController implements PsConstants {
 	@Autowired
 	private ProductService productService;
 	
-	@Autowired
-	private SaleOrderService saleOrderService;
 	
 	// Thêm một sản phẩm vào giỏ hàng
 	@RequestMapping(value = "/add-to-cart", method = RequestMethod.POST)
@@ -46,6 +36,7 @@ public class CartController extends BaseController implements PsConstants {
 			final HttpServletRequest request,
 			@RequestBody ProductCart addProduct) throws IOException{
 		
+		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		HttpSession session = request.getSession();
 		Cart cart = null;
 		// Lay gio hang trong Session
@@ -60,10 +51,20 @@ public class CartController extends BaseController implements PsConstants {
 		
 		// Laay san pham trong co so du lieu
 		Product dbProduct = productService.getById(addProduct.getProductId());
+		BigInteger productQuantity = BigInteger.valueOf(dbProduct.getProductQuantity());
 		String size = addProduct.getSize();
 
 		// Kiem tra san phamdat mua co trong gio hang chua
 		int index = cart.findProductByIdAndSize(dbProduct.getId(),size);
+		// Tính tổng số lượng sản phẩm cùng một loại có trong giỏ hàng
+		BigInteger totalQuantityInCart = calculateTotalQuantityInCart(cart, dbProduct.getId());
+		// Tính tổng số lượng sản phẩm mua mới và cập nhật giỏ hàng
+		BigInteger newQuantity = addProduct.getQuantity();
+		if (totalQuantityInCart.add(newQuantity).compareTo(productQuantity) > 0) { // vượt quá
+			jsonResult.put("code", "Thông báo");
+		    jsonResult.put("message", "Số lượng sản phẩm " + dbProduct.getName() + " không đủ hàng!");
+		    return ResponseEntity.ok(jsonResult);
+		}
 		if(index != -1) {// San pham da co trong gio hang
 			cart.getProductCarts().get(index).setQuantity(cart.getProductCarts().get(index).getQuantity().add(addProduct.getQuantity()));
 		}else {
@@ -74,9 +75,15 @@ public class CartController extends BaseController implements PsConstants {
 				// Nếu không có size được chọn thì mặc định lấy size đầu tiên từ danh sách size của sản phẩm
 				addProduct.setSize(dbProduct.getSize().split(",")[0]);
 			}
-			addProduct.setProductName(dbProduct.getName());
-			addProduct.setAvatar(dbProduct.getAvatar());
-			addProduct.setPrice(dbProduct.getPrice());
+				if(dbProduct.getSalePrice() != null) {
+					addProduct.setProductName(dbProduct.getName());
+					addProduct.setAvatar(dbProduct.getAvatar());
+					addProduct.setPrice(dbProduct.getSalePrice());
+				}else {
+					addProduct.setProductName(dbProduct.getName());
+					addProduct.setAvatar(dbProduct.getAvatar());
+					addProduct.setPrice(dbProduct.getPrice());
+				}
 			
 			cart.getProductCarts().add(addProduct);//Thêm sản phẩm mới vào giỏ hàng
 		}
@@ -84,12 +91,21 @@ public class CartController extends BaseController implements PsConstants {
 		// Thiet lap lai gio hang trong session
 		session.setAttribute("cart", cart);
 		// Tra ve du lieu cho view
-		Map<String, Object> jsonResult = new HashMap<String, Object>();
+//		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("code", "Thông báo");
 		jsonResult.put("totalCartProducts", cart.totalCartProduct());
 		jsonResult.put("message"," Đã thêm sản phẩm " + addProduct.getProductName() + " vào giỏ hàng ");
 		
 		return ResponseEntity.ok(jsonResult);
+	}
+	private BigInteger calculateTotalQuantityInCart(Cart cart, int productId) {
+	    BigInteger totalQuantity = BigInteger.ZERO;
+	    for (ProductCart productCart : cart.getProductCarts()) {
+	        if (productCart.getProductId() == productId) {
+	            totalQuantity = totalQuantity.add(productCart.getQuantity());
+	        }
+	    }
+	    return totalQuantity;
 	}
 	// Hiển thị giỏ hàng
 	@RequestMapping(value = "/cart-view", method = RequestMethod.GET)
@@ -120,6 +136,16 @@ public class CartController extends BaseController implements PsConstants {
 					size = cart.getProductCarts().get(0).getSize();
 				}
 				// Cap nhat so luong
+				// Lấy số lượng sản phẩm từ cơ sở dữ liệu
+		        Product dbProduct = productService.getById(productCart.getProductId());
+		        BigInteger productQuantity = BigInteger.valueOf(dbProduct.getProductQuantity());
+		        // Tính tổng số lượng các sản phẩm có cùng ID nhưng khác kích thước trong giỏ hàng
+		        BigInteger totalQuantityInCart = calculateTotalQuantityInCart(cart, productCart.getProductId());
+		        if (totalQuantityInCart.compareTo(productQuantity) >= 0 && productCart.getQuantity().compareTo(BigInteger.ZERO) > 0) {
+		        	jsonResult.put("code", "Thông báo");
+		        	jsonResult.put("message", "Số lượng sản phẩm " + dbProduct.getName() + " không đủ!");
+		            return ResponseEntity.ok(jsonResult);
+		        }
 				int index = cart.findProductByIdAndSize(productCart.getProductId(),size);
 				if(index != -1) {
 					BigInteger oldQuantity = cart.getProductCarts().get(index).getQuantity();
@@ -135,90 +161,7 @@ public class CartController extends BaseController implements PsConstants {
 			// Tra ve du lieu cho view
 			return ResponseEntity.ok(jsonResult);
 		}
-		// 
-		@RequestMapping(value = "/place-order", method = RequestMethod.POST)
-
-		public ResponseEntity<Map<String, Object>> placeOrder(final HttpServletRequest request,
-				@RequestBody Customer customer) throws IOException {
-			Map<String, Object> jsonResult = new HashMap<String, Object>();
-			
-			//Kiểm tra thông tin customer bắt buộc
-			if(StringUtils.isEmpty(customer.getTxtName())) {
-				jsonResult.put("code", "Thông báo");
-				jsonResult.put("message", "Bạn chưa nhập họ tên");
-			}
-			else if(StringUtils.isEmpty(customer.getTxtMobile())) {
-				jsonResult.put("code", "Thông báo");
-				jsonResult.put("message", "Bạn chưa nhập số điện thoại");
-			}
-			else if(StringUtils.isEmpty(customer.getTxtEmail())) {
-				jsonResult.put("code", "Thông báo");
-				jsonResult.put("message", "Bạn chưa nhập số email");
-			}
-			else if(StringUtils.isEmpty(customer.getTxtAddress())) {
-				jsonResult.put("code", "Thông báo");
-				jsonResult.put("message", "Bạn chưa nhập số địa chỉ");
-			}
-			else {
-				HttpSession session = request.getSession();
-				if(session.getAttribute("cart") == null) {
-					jsonResult.put("message", "Ban chua co gio hang");
-				}else {
-					Cart cart = (Cart) session.getAttribute("cart");
-					// Lưu các sản phẩm trong giỏ hàng vào bảng tbl_sale_order_product
-					SaleOrder saleOrder = new SaleOrder();
-					boolean hasEnoughInventory = true;
-					for(ProductCart productCart: cart.getProductCarts()) {
-						// Lấy sản phẩm trong db
-						SaleOrderProduct saleOrderProduct = new SaleOrderProduct();
-						Product dbProduct = productService.getById(productCart.getProductId());
-						//Lấy ra số lượng sản phẩm trong giỏ hàng
-						BigInteger cartQuantity = productCart.getQuantity();
-						//Lấy ra số lượng sản phẩm trong kho
-						BigInteger currentQuantity = BigInteger.valueOf(dbProduct.getProductQuantity());
-						//Tính toán giá trị mới cho cho số lượng còn trong kho
-						BigInteger updateQuantity = currentQuantity.subtract(cartQuantity);
-						if(updateQuantity.compareTo(BigInteger.ZERO) < 0) {
-							hasEnoughInventory = false;
-							jsonResult.put("code", "Thông báo");
-							jsonResult.put("message", "Sản phẩm " + dbProduct.getName() + " chỉ còn " + currentQuantity + " sản phẩm trong kho. Vui lòng điều chỉnh số lượng.");
-			                break; 
-						}
-						dbProduct.setProductQuantity(updateQuantity.intValue());
-						saleOrderProduct.setProduct(dbProduct);
-						saleOrderProduct.setQuantity(productCart.getQuantity().intValue());
-						saleOrderProduct.setSize(productCart.getSize());
-						saleOrderProduct.setCreateDate(new Date());
-						saleOrder.addRelationalSaleOrderProduct(saleOrderProduct);
-					}
-					//Lưu đơn hàng vào tbl_sale_order 
-					if(hasEnoughInventory) {
-						Calendar cal = Calendar.getInstance();
-						String code = customer.getTxtMobile() + cal.get(Calendar.YEAR) + cal.get(Calendar.MONTH)+ 
-								cal.get(Calendar.DAY_OF_MONTH);
-						saleOrder.setCode(code);
-						User user = new User();
-						user.setId(1);
-						saleOrder.setUser(user);
-						saleOrder.setStatus(false);
-						saleOrder.setCustomerName(customer.getTxtName());
-						saleOrder.setCustomerMobile(customer.getTxtMobile());
-						saleOrder.setCustomerEmail(customer.getTxtEmail());
-						saleOrder.setCreateDate(new Date());
-						saleOrder.setCustomerAddress(customer.getTxtAddress());
-						saleOrder.setTotal(cart.totalCartPrice());
-						
-						saleOrderService.saveOrder(saleOrder);
-						jsonResult.put("code", "Thông báo");
-						jsonResult.put("message", "Bạn đã đặt hàng thành công");
-						// Xóa giỏ hàng sau khi đã đặt hàng
-						cart = new Cart();
-						session.setAttribute("cart", cart);
-					}
-				}
-			}
-			return ResponseEntity.ok(jsonResult);
-		}
+		
 		@RequestMapping(value = "/product-cart-delete/{productId}/{size}", method = RequestMethod.GET)
 		public String deleteProduct(@PathVariable("productId") int productId,@PathVariable("size") String size,
 				final HttpServletRequest request,

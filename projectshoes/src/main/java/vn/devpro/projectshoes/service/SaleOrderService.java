@@ -28,8 +28,16 @@ public class SaleOrderService extends BaseService<SaleOrder> implements PsConsta
 	public void inactiveSaleOrder(SaleOrder saleOrder) {
 		super.saveOrUpdate(saleOrder);
 	}
+	@Transactional
+	public void deleteOrderById(int id) {
+		super.deleteById(id);
+	}
+	
 	public List<SaleOrder> findAllActive(){
 		return super.executeNativeSql("Select * From tbl_sale_order WHERE status = 1");
+	}
+	public List<SaleOrder> getOrdersByUserId(int userId) {
+		return super.executeNativeSql("SELECT * FROM tbl_sale_order WHERE user_id = " + userId);
 	}
 	public List<SaleOrder> searchOrder(SearchModel orderSearch){
 		String sql = "SELECT * from tbl_sale_order p WHERE 1=1";

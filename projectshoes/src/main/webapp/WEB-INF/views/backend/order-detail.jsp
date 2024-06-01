@@ -109,11 +109,28 @@
 																		class="light-logo"></td>
 																	<td>${item.size }</td>
 																	<td class="text-right">${item.quantity}</td>
-																	<td class="text-right"><fmt:formatNumber
-																			value="${item.product.price }" minFractionDigits="0" /></td>
-																	<td class="text-right"><fmt:formatNumber
-																			value="${item.product.price * item.quantity }"
-																			minFractionDigits="0" /></td>
+																	<td class="text-right"><c:choose>
+																			<c:when test="${item.product.salePrice > 0}">
+																				<fmt:formatNumber value="${item.product.salePrice}"
+																					minFractionDigits="0" />
+																			</c:when>
+																			<c:otherwise>
+																				<fmt:formatNumber value="${item.product.price}"
+																					minFractionDigits="0" />
+																			</c:otherwise>
+																		</c:choose></td>
+																	<td class="text-right"><c:choose>
+																			<c:when test="${item.product.salePrice > 0}">
+																				<fmt:formatNumber
+																					value="${item.product.salePrice * item.quantity}"
+																					minFractionDigits="0" />
+																			</c:when>
+																			<c:otherwise>
+																				<fmt:formatNumber
+																					value="${item.product.price * item.quantity}"
+																					minFractionDigits="0" />
+																			</c:otherwise>
+																		</c:choose></td>
 																</tr>
 															</c:forEach>
 														</tbody>

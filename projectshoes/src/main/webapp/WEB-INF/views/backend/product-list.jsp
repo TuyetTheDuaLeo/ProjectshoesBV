@@ -60,6 +60,11 @@
 											<div class="form-group mb-4">
 												<h3>Tổng sản phẩm: &nbsp ${productSearch.totalItems }</h3>
 											</div>
+											<div class="form-group mb-4">
+												
+												<h3>Số lượng sản phầm còn: <fmt:formatNumber value="${totalProducts}"
+																minFractionDigits="0"></fmt:formatNumber></h3>
+											</div>
 										</div>	
 										
 										<div class="col-md-6">

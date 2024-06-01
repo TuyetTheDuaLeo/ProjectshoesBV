@@ -8,7 +8,128 @@
 	box-sizing: border-box;
 	font-family: "Roboto", sans-serif;
 }
+/* Toast */
+.toast {
+	width: 350px;
+    position: fixed;
+    right: 3%;
+    top: -150px; 
+    z-index: 999;   
+    transition: top 0.3s ease; 
+}
 
+.toast-header-success {
+	border-bottom: 1px solid #088178;
+}
+
+.toast-header-error {
+	border-bottom: 1px solid #dc3545;
+}
+
+.toast-success {
+	border: 1px solid #088178;
+}
+
+.toast-error {
+	border: 1px solid #dc3545;
+}
+
+.toast.show {
+    top: 14%; 
+}
+
+/*Payment Page*/
+.payments-method-item {
+    display: flex;
+    align-items: center;
+}
+
+ .payments-method-item input[type="radio"] {
+    margin-right: 5px; 
+}
+
+.payments-method-item label {
+    display: flex;
+    align-items: center;
+}
+
+.payment-return {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    text-align: center;
+}
+
+.payment-return .fa-circle-check {
+    font-size: 6rem;
+    color: #088178;
+    margin-bottom: 1rem;
+}
+
+.payment-return .fa-circle-xmark {
+    font-size: 6rem;
+    color: #dc3545;
+    margin-bottom: 1rem;
+}
+
+.payment-return .btn {
+    margin-top: 1rem;
+}
+
+.payment-return p {
+	margin: 0 0 1rem 0;
+}
+/* END */
+
+#messeger {
+	display: block;
+	position: fixed;
+	bottom: 200px;
+	right: 10px;
+}
+
+df-messenger {
+	position: fixed;
+	bottom: 20px; 
+	right: 20px;
+	max-width: 350px; 
+	z-index: 1000;
+}
+
+#scrollTop {
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	text-decoration: none;
+	border-radius: 50%;
+	z-index: 1;
+	background-color: transparent;
+	text-align: center;
+	line-height: 40px;
+	top: 560px;
+	right: 28px;
+	border: 2px solid #5c5c5c;
+	cursor: pointer;
+	transition: opacity 0.5s ease, transform 0.5s ease;
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+#scrollTop i {
+	font-size: 12px;
+	color: #5d5c5c;
+}
+
+#scrollTop:hover {
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+/* Slider*/
 .slide-img .btn-custom-prev {
 	position: absolute;
 	left: 30px;
@@ -848,6 +969,13 @@ footer .follow i:hover, footer a:hover {
 	display: flex;
 	align-items: center;
 }
+.special-price .product-price .old-price{
+	text-decoration: line-through;
+    font-size: 19px;
+    color: #9e9e9e;
+    line-height: 17px;
+    font-weight: 300;
+}
 
 .detail-price .new-price, .detail-price .default-price {
 	font-size: 20px;
@@ -998,11 +1126,7 @@ footer .follow i:hover, footer a:hover {
 }
 
 input[type="radio"] {
-	appearance: none;
-	font-size: 2rem;
-	width: 2rem;
 	height: 2rem;
-	position: relative;
 }
 
 input[type="radio"]::before {
@@ -1015,11 +1139,6 @@ input[type="radio"]::before {
 	cursor: pointer;
 }
 
-input[type="radio"]:nth-child(odd) {
-	margin-left: -16px;
-	z-index: 1;
-	overflow: hidden;
-}
 
 input[type="radio"]:nth-child(odd)::before {
 	left: 0;

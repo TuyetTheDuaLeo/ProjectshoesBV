@@ -11,9 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${classpath}/frontend/css/contact.css">
     <jsp:include page="/WEB-INF/views/frontend/layout/css.jsp"></jsp:include>
+    <link rel="stylesheet" href="${classpath }/frontend/css/demo.css">
     <title>${title}</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/frontend/layout/toast.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/frontend/layout/header.jsp"></jsp:include>
     <nav>
         <div class="bread-crumb">
@@ -57,7 +59,7 @@
                                         Email
                                         <span class="required">*</span>
                                     </label>
-                                    <input type="text" value ="${loginedUser.email }" placeholder="Nhập địa chỉ email" id="txtEmail" 
+                                    <input type="email" value ="${loginedUser.email }" placeholder="Nhập địa chỉ email" id="txtEmail" 
                                     class="form-control  form-control-lg" name="txtEmail">
                                 </fieldset>
                             </div>
@@ -91,7 +93,7 @@
                                     placeholder="Nội dung liên hệ"></textarea>
                                 </fieldset>
                                 <fieldset class="form-group">
-                                    <button type="button" onclick="_notification()" class="btn btn-blues btn-style btn-style-active">Gửi liên hệ ngay</button>
+                                    <button type="button" class="normal" onclick="_notification()" class="btn btn-blues btn-style btn-style-active">Gửi liên hệ ngay</button>
                                 </fieldset>
                             </div>
                         </div>
@@ -99,7 +101,7 @@
                 </div>
                 <div class="col-lg-6 col-12 order-md-1">
                     <div class="contact-maps">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.8347348034436!2d105.77081187441749!3d21.039297680612666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454b5534fb3bf%3A0x70d71b071349fa94!2sDevPro%20Education!5e0!3m2!1svi!2s!4v1704787728216!5m2!1svi!2s" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.4549803802784!2d105.77436082441679!3d21.014473580631304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454aa0fed56c7%3A0x1ba275bf03d4c1a9!2zVHJ1bmcgdMOibSB0aMawxqFuZyBt4bqhaSBUaGUgR2FyZGVu!5e0!3m2!1svi!2s!4v1716994672189!5m2!1svi!2s" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>

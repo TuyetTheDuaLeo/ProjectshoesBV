@@ -32,6 +32,9 @@ public class ProductService extends BaseService<Product>  implements PsConstants
 	public List<Product> findAllActiveAndIsHot() {
 		return super.executeNativeSql("SELECT * FROM tbl_product WHERE status=1 AND is_hot = 1");
 	}
+	public List<Product> findTop8ProductNew() {
+	    return super.executeNativeSql("SELECT * FROM tbl_product WHERE status = 1 ORDER BY create_date DESC LIMIT 8");
+	}
 	public boolean isUploadFile(MultipartFile file) {
 		if(file == null || file.getOriginalFilename().isEmpty()) {
 			return false;
@@ -195,45 +198,85 @@ public class ProductService extends BaseService<Product>  implements PsConstants
 			}
 			
 			// Sắp xếp theo giá
+//			if(searchModel.getCheckPrice() != 0) {
+//				switch(searchModel.getCheckPrice()) {
+//				case 1:
+//					sql += " AND p.price BETWEEN 0 AND 1000000 ";
+//					break;
+//				case 2:
+//					sql += " AND p.price BETWEEN 1000000 AND 3000000 ";
+//					break;
+//				case 3:
+//					sql += " AND p.price BETWEEN 3000000 AND 5000000 ";
+//					break;
+//				case 4:
+//					sql += " AND p.price BETWEEN 5000000 AND 10000000 ";
+//					break;
+//				case 5:
+//					sql += " AND p.price >= 10000000 ";
+//					break;
+//				default:
+//					break;
+//				}
+//			}
 			if(searchModel.getCheckPrice() != 0) {
-				switch(searchModel.getCheckPrice()) {
-				case 1:
-					sql += " AND p.price BETWEEN 0 AND 1000000 ";
-					break;
-				case 2:
-					sql += " AND p.price BETWEEN 1000000 AND 3000000 ";
-					break;
-				case 3:
-					sql += " AND p.price BETWEEN 3000000 AND 5000000 ";
-					break;
-				case 4:
-					sql += " AND p.price BETWEEN 5000000 AND 10000000 ";
-					break;
-				case 5:
-					sql += " AND p.price >= 10000000 ";
-					break;
-				default:
-					break;
-				}
+			    switch(searchModel.getCheckPrice()) {
+			        case 1:
+			            sql += " AND (p.sale_price BETWEEN 0 AND 1000000 OR (p.sale_price IS NULL AND p.price BETWEEN 0 AND 1000000)) ";
+			            break;
+			        case 2:
+			            sql += " AND (p.sale_price BETWEEN 1000000 AND 3000000 OR (p.sale_price IS NULL AND p.price BETWEEN 1000000 AND 3000000)) ";
+			            break;
+			        case 3:
+			            sql += " AND (p.sale_price BETWEEN 3000000 AND 5000000 OR (p.sale_price IS NULL AND p.price BETWEEN 3000000 AND 5000000)) ";
+			            break;
+			        case 4:
+			            sql += " AND (p.sale_price BETWEEN 5000000 AND 10000000 OR (p.sale_price IS NULL AND p.price BETWEEN 5000000 AND 10000000)) ";
+			            break;
+			        case 5:
+			            sql += " AND (p.sale_price >= 10000000 OR (p.sale_price IS NULL AND p.price >= 10000000)) ";
+			            break;
+			        default:
+			            break;
+			    }
 			}
-			// Sắp xếp theo tùy chọn
+//			// Sắp xếp theo tùy chọn
+//			if(searchModel.getSortCheck() != null && !searchModel.getSortCheck().isEmpty()) {
+//				switch(searchModel.getSortCheck()) {
+//				case "nameASC":
+//					sql += " ORDER BY LOWER(p.name) COLLATE utf8mb4_unicode_ci ASC";
+//					break;
+//				case "nameDESC":
+//					sql += " ORDER BY LOWER(p.name) COLLATE utf8mb4_unicode_ci DESC";
+//					break;
+//				case "priceASC":
+//					sql += " ORDER BY p.price ASC";
+//					break;
+//				case "priceDESC":
+//					sql += " ORDER BY p.price DESC";
+//					break;
+//				default:
+//						break;
+//				}
+//			}
+//			return super.executeNativeSql(sql);
 			if(searchModel.getSortCheck() != null && !searchModel.getSortCheck().isEmpty()) {
-				switch(searchModel.getSortCheck()) {
-				case "nameASC":
-					sql += " ORDER BY LOWER(p.name) COLLATE utf8mb4_unicode_ci ASC";
-					break;
-				case "nameDESC":
-					sql += " ORDER BY LOWER(p.name) COLLATE utf8mb4_unicode_ci DESC";
-					break;
-				case "priceASC":
-					sql += " ORDER BY p.price ASC";
-					break;
-				case "priceDESC":
-					sql += " ORDER BY p.price DESC";
-					break;
-				default:
-						break;
-				}
+			    switch(searchModel.getSortCheck()) {
+			        case "nameASC":
+			            sql += " ORDER BY LOWER(p.name) COLLATE utf8mb4_unicode_ci ASC";
+			            break;
+			        case "nameDESC":
+			            sql += " ORDER BY LOWER(p.name) COLLATE utf8mb4_unicode_ci DESC";
+			            break;
+			        case "priceASC":
+			            sql += " ORDER BY CASE WHEN p.sale_price IS NOT NULL THEN p.sale_price ELSE p.price END ASC";
+			            break;
+			        case "priceDESC":
+			            sql += " ORDER BY CASE WHEN p.sale_price IS NOT NULL THEN p.sale_price ELSE p.price END DESC";
+			            break;
+			        default:
+			            break;
+			    }
 			}
 			return super.executeNativeSql(sql);
 		}

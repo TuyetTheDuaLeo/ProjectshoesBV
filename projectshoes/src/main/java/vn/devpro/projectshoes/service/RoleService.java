@@ -36,14 +36,11 @@ public class RoleService extends BaseService<Role>{
 		}
 	}
 	public Role getRoleById(int roleId) {
-
 		String sql = "SELECT * FROM tbl_role WHERE id = '" + roleId + "'";
 		List<Role> roles = super.executeNativeSql(sql);
-
 		if (roles.size() > 0) {
 			return roles.get(0);
 		}
-
 		else {
 			return new Role();
 		}

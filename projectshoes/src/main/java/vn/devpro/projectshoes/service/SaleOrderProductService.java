@@ -20,4 +20,7 @@ public class SaleOrderProductService extends BaseService<SaleOrderProduct>{
 	public List<SaleOrderProduct> findAllActive() {
 		return super.executeNativeSql("SELECT * FROM tbl_sale_order_product WHERE status = 1");
 	}
+	public List<SaleOrderProduct> getProductsByOrderId(int orderId) {
+		return super.executeNativeSql("SELECT * FROM tbl_sale_order_product WHERE sale_order_id = " + orderId);
+	}
 }

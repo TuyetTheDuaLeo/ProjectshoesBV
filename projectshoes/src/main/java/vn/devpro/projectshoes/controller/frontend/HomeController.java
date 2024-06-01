@@ -31,9 +31,8 @@ public class HomeController extends BaseController{
 	private ProductService productService;
 	@Autowired
 	private ProductImageService productImageService;
-	@Autowired 
-	private CategoryService categoryService;
-	
+//	@Autowired
+//	private CategoryService categoryService;
 //	@RequestMapping(value="/index", method = RequestMethod.GET)
 //	// @RequestMapping : Anh xa mot action den mot action method trong controller
 //	public String index(final Model model,
@@ -57,7 +56,7 @@ public class HomeController extends BaseController{
 	        model.addAttribute("productSearch", productSearch);
 	        model.addAttribute("keyword", keyword);
 	        model.addAttribute("allProducts", allProducts);
-	        return "redirect:/product?keyword=" + URLEncoder.encode(keyword, StandardCharsets.UTF_8);
+	        return "redirect:/allproduct?keyword=" + URLEncoder.encode(keyword, StandardCharsets.UTF_8);
 	    }
 	    
 	    // Lấy ra danh sách sản phẩm isHot
@@ -65,7 +64,7 @@ public class HomeController extends BaseController{
 	    model.addAttribute("isHotProducts", isHotProducts);
 	    model.addAttribute("discountsForHotProducts", calculateDiscounts(isHotProducts));
 
-	    List<Product> products = productService.findAllActive();
+	    List<Product> products = productService.findTop8ProductNew();
 	    model.addAttribute("products", products);
 	    model.addAttribute("discountsForAllProducts", calculateDiscounts(products));
 	       
@@ -73,6 +72,7 @@ public class HomeController extends BaseController{
 
 	    return "frontend/index"; // --> Browser
 	}
+	
 	@RequestMapping(value="/product-detail/{productId}", method = RequestMethod.GET)
 	// @RequestMapping : Anh xa mot action den mot action method trong controller
 	public String productDetail(final Model model,
