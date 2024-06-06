@@ -64,7 +64,7 @@
 												<div class="row">
 													<div class="col-md-12 mb-3">
 														<div class="form-group">
-															<h3>Total contacts: ${contactSearch.totalItems}</h3>
+															<h3>Tổng số liên hệ: ${contactSearch.totalItems}</h3>
 														</div>
 													</div>
 												</div>
@@ -74,8 +74,8 @@
 														<div class="form-group mb-4">
 															<select class="form-control" id="status" name="status">
 																<option value="2">Tất cả</option>
-																<option value="1">Hoạt động</option>
-																<option value="0">Không hoạt động</option>
+																<option value="1">Chưa kiểm tra</option>
+																<option value="0">Đã kiểm tra</option>
 															</select>
 														</div>
 													</div>
@@ -141,7 +141,7 @@
 																<td><fmt:formatDate pattern="dd-MM-yyyy"
 																		value="${contact.updateDate}" /></td>
 																<td><c:choose>
-																		<c:when test="${contact.status }">Hoạt động</c:when>
+																		<c:when test="${contact.status }">Chưa kiểm tra</c:when>
 																		<c:otherwise>Đã kiểm tra</c:otherwise>
 																	</c:choose></td>
 																<td>

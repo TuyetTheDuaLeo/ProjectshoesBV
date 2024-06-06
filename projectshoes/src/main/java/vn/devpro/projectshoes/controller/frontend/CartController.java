@@ -1,6 +1,7 @@
 package vn.devpro.projectshoes.controller.frontend;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
@@ -146,6 +147,7 @@ public class CartController extends BaseController implements PsConstants {
 		        	jsonResult.put("message", "Số lượng sản phẩm " + dbProduct.getName() + " không đủ!");
 		            return ResponseEntity.ok(jsonResult);
 		        }
+		        //Kiểm tra sản phẩm đặt mua đã có trong giỏ hàng hay chưa
 				int index = cart.findProductByIdAndSize(productCart.getProductId(),size);
 				if(index != -1) {
 					BigInteger oldQuantity = cart.getProductCarts().get(index).getQuantity();
@@ -155,7 +157,19 @@ public class CartController extends BaseController implements PsConstants {
 					}
 					cart.getProductCarts().get(index).setQuantity(newQuantity);
 					jsonResult.put("newQuantity", newQuantity);
+					// Lấy ra new totalPrice 
+					BigDecimal newTotalPrice = BigDecimal.ZERO;
+					if(dbProduct.getSalePrice() != null) {
+						newTotalPrice = dbProduct.getSalePrice().multiply(new BigDecimal(newQuantity));
+					}else {
+						newTotalPrice = dbProduct.getPrice().multiply(new BigDecimal(newQuantity));
+					}
+					jsonResult.put("newTotalPrice", newTotalPrice);
+					jsonResult.put("totalCartProducts", cart.totalCartProduct());
+					BigDecimal newTotalCartPrice = cart.totalCartPrice();
+					jsonResult.put("newTotalCartPrice", newTotalCartPrice);
 					jsonResult.put("productId", productCart.getProductId());
+					jsonResult.put("size", size);
 				}
 			}	
 			// Tra ve du lieu cho view

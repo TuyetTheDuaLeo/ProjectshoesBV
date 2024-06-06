@@ -114,7 +114,8 @@
                                             </a>
                                             <div class="action-cart">
                                                 <button title="Thêm vào giỏ hàng">
-                                                    <a onclick="addToCart(${product.id}, 1, '${product.name }')">
+                                                <c:set var="firstSize" value="${fn:split(product.size, ',')[0]}" />
+                                                    <a onclick="addToCart(${product.id}, 1, '${product.name }', '${firstSize }')">
                                                     	<svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
                                                         <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
                                                         <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
@@ -192,7 +193,8 @@
                                             </a>
                                             <div class="action-cart">
                                                 <button title="Thêm vào giỏ hàng">
-                                                    <a onclick="addToCart(${product.id}, 1, '${product.name }')">
+                                                	<c:set var="firstSize" value="${fn:split(product.size, ',')[0]}" />
+                                                    <a onclick="addToCart(${product.id}, 1, '${product.name }', ${firstSize })">
                                                     	<svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
                                                         <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
                                                         <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
@@ -1182,12 +1184,13 @@
     <jsp:include page="/WEB-INF/views/frontend/layout/js.jsp"></jsp:include>
 	<%--addToCart --%>
 	<script type="text/javascript">
-		addToCart = function(_productId, _quantity, _productName){
+		addToCart = function(_productId, _quantity, _productName, _size){
 			// alert("Thêm" + _quantity + "sản phẩm '" + _productName + "'vào giỏ hàng");
 			let data = {
 					productId: _productId, // Lấy theo id
 					quantity: _quantity,
 					productName: _productName,
+					size: _size,
 			};
 			//$===jQuery
 			jQuery.ajax({

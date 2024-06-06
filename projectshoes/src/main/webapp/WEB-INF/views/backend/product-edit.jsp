@@ -75,7 +75,7 @@
 										<div class="row">
 													<div class="col-md-6">
 														<div class="form-group mb-4">
-															<label for="productQuantity">Product quantity</label>
+															<label for="productQuantity">Số lượng</label>
 															<sf:input path="productQuantity" type="number" class="form-control"
 																id="productQuantity" name="productQuantity" placeholder="product quantity"></sf:input>
 														</div>

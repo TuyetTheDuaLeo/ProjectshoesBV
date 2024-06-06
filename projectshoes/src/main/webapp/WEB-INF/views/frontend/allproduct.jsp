@@ -148,7 +148,7 @@
                                                     <label for="checkPrice1">
                                                         <input type="checkbox" id="checkPrice1" name="checkPrice" value="1" data-text="Duoi-1000000" 
                                                         <c:if test="${searchModel.checkPrice == 1}">checked</c:if>>
-                                                        <i class="fa"></i>Giá dưới 1.000.000đ
+                                                        <i class="fa"></i>0 - 1.000.000đ
                                                     </label>
                                                 </span>
                                             </li>
@@ -220,7 +220,9 @@
                                                 </svg>
                                             </a>
                                             <div class="action-cart">
-                                                <button title="Thêm vào giỏ hàng" onclick="addToCart( event, ${product.id}, 1,'${product.name }')">
+                                                <button title="Thêm vào giỏ hàng" >
+                                                	<c:set var="firstSize" value="${fn:split(product.size, ',')[0]}" />
+                                                	<a onclick="addToCart(event, ${product.id}, 1, '${product.name }', '${firstSize }')">
                                                     <svg class="action-icon-cart" xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
                                                         <circle cx="9" cy="15.7368" r="1.26316" fill="white"></circle>
                                                         <circle cx="14.0526" cy="15.7368" r="1.26316" fill="white"></circle>
@@ -273,13 +275,14 @@
     <jsp:include page="/WEB-INF/views/frontend/layout/js.jsp"></jsp:include>
     <%--addToCart --%>
 	<script type="text/javascript">
-		addToCart = function(event,_productId, _quantity, _productName){
+		addToCart = function(event, _productId, _quantity, _productName, _size){
 			// alert("Thêm" + _quantity + "sản phẩm '" + _productName + "'vào giỏ hàng");
 			event.preventDefault();
 			let data = {
 					productId: _productId, // Lấy theo id
 					quantity: _quantity,
 					productName: _productName,
+					size: _size,
 			};
 			//$===jQuery
 			jQuery.ajax({
@@ -301,20 +304,5 @@
 			});
 		}
 	</script>
-	<%-- <script type="text/javascript">
-		$( document ).ready(function() {
-			$("#paging").pagination({
-				currentPage: ${searchModel.currentPage}, //Trang hien tai
-				items: ${searchModel.totalItems}, //Tong so san pham (total products)
-				itemsOnPage: ${searchModel.sizeOfPage}, // số sản phẩm trên 1 trang
-				cssStyle: 'light-theme',
-				onPageClick: function(pageNumber, event) {
-					event.preventDefault();
-					$('#currentPage').val(pageNumber);
-					$('#btnSearch').trigger('click');
-				},
-			});
-		});
-	</script>--%>
 </body>
 </html>

@@ -87,7 +87,7 @@ public class CategoryController extends BaseController implements PsConstants{
 			@ModelAttribute("category") Category category) {
 
 		categoryService.saveOrUpdate(category);
-		return "redirect:/admin/category/add";
+		return "redirect:/admin/category/list";
 	}
 	@RequestMapping (value = "edit/{categoryId}", method = RequestMethod.GET)
 	public String edit(final Model model, 

@@ -223,6 +223,7 @@ public class CheckoutController extends BaseController {
 				saleOrder.setCustomerMobile(customer.getTxtMobile()); // luu so dien thoai
 				saleOrder.setCustomerEmail(customer.getTxtEmail()); // luu email
 				saleOrder.setCustomerAddress(customer.getTxtAddress()); // luu dia chi
+				saleOrder.setStatus(false);
 				saleOrder.setPaymentMethod(true);
 				saleOrder.setTotal(cart.totalCartPrice()); // gia phai tra
 

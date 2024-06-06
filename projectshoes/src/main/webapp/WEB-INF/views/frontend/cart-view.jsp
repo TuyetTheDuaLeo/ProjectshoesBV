@@ -75,7 +75,7 @@
                                                     </div>
                                                     <div class="grid">
                                                         <div class="grid__item one-half text-right cart_prices">
-                                                            <span class="cart-price"><fmt:formatNumber value="${item.price }" minFractionDigits="0"></fmt:formatNumber> </span>
+                                                            <span class="cart-price"><fmt:formatNumber value="${item.price }" minFractionDigits="0"></fmt:formatNumber> vnd </span>
                                                         </div>
                                                     </div>
                                                     <div class="grid">
@@ -83,8 +83,11 @@
                                                             <div class="ajaxcart__qty input-group-btn">
                                                                 <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" 
                                                                  onclick="updateProductQuantity(${item.productId}, -1,'${item.size }')" value="-">-</button>
-                                                                <input type="text" name="update[]" class="ajaxcart__qty-num number-sidebar" id="productQuantity_${item.productId }" value="${item.quantity}"
-                                                                data-line="1" aria-label="quantity" maxlength="3">
+                                                                 
+                                                                <strong type="text" name="update[]" class="ajaxcart__qty-num number-sidebar"> <span class="quantity-input"
+																	id="productQuantity_${item.productId}_${item.size.trim()}">
+																		${item.quantity} </span>
+																</strong>
                                                                 <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" 
                                                                 onclick="updateProductQuantity(${item.productId}, 1, '${item.size }')" value="+">+</button>
                                                             </div>
@@ -92,8 +95,8 @@
                                                     </div>
                                                     <div class="grid">
                                                         <div class="grid__item one-half text-right cart_prices">
-                                                            <span class="cart-price">
-                                                            	<fmt:formatNumber value="${item.price * item.quantity }" minFractionDigits="0"></fmt:formatNumber>
+                                                            <span class="cart-price" id="totalPrice_${item.productId}_${item.size.trim()}">
+                                                            	<fmt:formatNumber value="${item.price * item.quantity }" minFractionDigits="0"></fmt:formatNumber> vnd
                                                             </span>
                                                         </div>
                                                     </div>
@@ -111,7 +114,7 @@
                                                             Tổng tiền:
                                                         </div>
                                                         <div class="text-right cart__totle">
-                                                            <span class="total-price"> <fmt:formatNumber value="${totalCartPrice }" minFractionDigits="0"></fmt:formatNumber> <sup>vnd</sup> </span>
+                                                            <span class="total-price" id = "totalCartPrice" > <fmt:formatNumber value="${totalCartPrice }" minFractionDigits="0"></fmt:formatNumber> vnd</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -161,7 +164,7 @@
     </main>
     <jsp:include page="/WEB-INF/views/frontend/layout/footer.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/frontend/layout/js.jsp"></jsp:include>
-    <script type="text/javascript">
+  <%-- <script type="text/javascript">
      updateProductQuantity = function(_productId, _quantity){
     		let data = {
     			productId : _productId,// Lấy theo id
@@ -189,10 +192,22 @@
     			
     		});
     	}
-    </script> 
+    </script>  --%> 
     
- <%--   <!-- Tăng/giảm số lượng sản phẩm trong giỏ hàng -->
+    <!-- Tăng/giảm số lượng sản phẩm trong giỏ hàng -->
+    
 	<script type="text/javascript">
+	function formatCurrency(amount) {
+		  const formattedAmount = new Intl.NumberFormat('vi-VN', {
+		    style: 'currency',
+		    currency: 'VND',
+		    currencyDisplay: 'code',
+		    minimumFractionDigits: 0,
+		    maximumFractionDigits: 0
+		  }).format(amount);
+
+		  return formattedAmount.replace('VND', 'vnd');
+		}
     updateProductQuantity = function(_productId, _quantity, _size) {
         let data = {
             productId: _productId,
@@ -209,32 +224,21 @@
             dataType: "json", // Kiểu dữ liệu trả về từ controller là json
 
             success: function(jsonResult) {     
-                let totalProducts = jsonResult.totalCartProducts;
+            	let totalProducts = jsonResult.totalCartProducts;
                 $("#totalCartProductsId").html(totalProducts);
                 
                 // Cập nhật số lượng sau khi bấm nút -, +
-                $("#productQuantity_" + jsonResult.productId).html(jsonResult.newQuantity);
-
-                // Định dạng giá trị thành tiền mới
-                let formattedNewTotalPrice = formatCurrency(jsonResult.newTotalPrice);
-                $("#productTotalPrice_" + jsonResult.productId).html(formattedNewTotalPrice + "₫");
-
-                // Định dạng tổng thành tiền cho toàn bộ giỏ hàng
-                let formattedTotalCartPrice = formatCurrency(jsonResult.totalCartPrice);
-                $("#totalCartPriceId").html(formattedTotalCartPrice + "₫");
+                var trimmedSize = jsonResult.size.trim();
+			    $("#productQuantity_" + jsonResult.productId + "_" + trimmedSize).html(jsonResult.newQuantity);
+			    
+			    $("#totalPrice_" + jsonResult.productId + "_" + trimmedSize).html(formatCurrency(jsonResult.newTotalPrice));
+			    $("#totalCartPrice").html(formatCurrency(jsonResult.newTotalCartPrice));
+			  
             },
-
-            error: function(jqXhr, textStatus, errorMessage) {
-                var response = JSON.parse(jqXhr.responseText);
-                var errorMessage = response.errorMessage;
-                $('.toast-body-error').html(errorMessage);
-                $('.toast-error').toast('show');
-            }
+            	error : function(jqXhr, testStatus, errorMessage){
+					alert("An error occur");
+				}
         });
-    }
-
-    function formatCurrency(value) {
-        return new Intl.NumberFormat('vi-VN', { maximumSignificantDigits: 3 }).format(value);
     }
 </script>
 
@@ -244,7 +248,7 @@
 		    event.preventDefault();
 		});
 	//END
-	</script>  --%>
+	</script>  
     
 </body>
 </html>

@@ -52,7 +52,6 @@ public class SaleOrderService extends BaseService<SaleOrder> implements PsConsta
 			String keyword = orderSearch.getKeyword().toLowerCase();
 			
 			sql += " AND (LOWER(p.customer_name) like '%" + keyword + "%'" +
-					" OR LOWER(p.customer_email) like '%" + keyword + "%'" +
 					" OR LOWER(p.customer_mobile) like '%" + keyword + "%')";
 		}
 		// Tìm kiếm theo ngày tháng

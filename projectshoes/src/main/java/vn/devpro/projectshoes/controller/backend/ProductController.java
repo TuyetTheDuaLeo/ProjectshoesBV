@@ -148,7 +148,7 @@ public class ProductController extends BaseController implements PsConstants{
 			@RequestParam("avatarFile") MultipartFile avatarFile,
 			@RequestParam("imageFiles") MultipartFile[] imageFiles) throws IOException{
 		productService.saveAddProduct(product, avatarFile, imageFiles);
-		return "redirect:/admin/product/add";
+		return "redirect:/admin/product/list";
 	}
 	@RequestMapping(value = "edit/{productId}", method = RequestMethod.GET)
 	public String edit(final Model model,

@@ -487,7 +487,7 @@ svg {
     height: 28px;
     float: left;
 }
-.cart-page .cart_body .cart_select input {
+.cart-page .cart_body .cart_select strong {
     display: inline-block;
     padding: 0;
     text-align: center;
